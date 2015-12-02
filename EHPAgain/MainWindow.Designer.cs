@@ -63,6 +63,7 @@
             this.signatureImageBox = new System.Windows.Forms.PictureBox();
             this.returnedSignatureLabel = new System.Windows.Forms.Label();
             this.showReceiptButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -331,7 +332,7 @@
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(781, 22);
+            this.helpButton.Location = new System.Drawing.Point(700, 22);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(75, 23);
             this.helpButton.TabIndex = 30;
@@ -424,11 +425,22 @@
             this.showReceiptButton.UseVisualStyleBackColor = true;
             this.showReceiptButton.Click += new System.EventHandler(this.showReceiptButton_Click);
             // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(781, 22);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(75, 23);
+            this.exitButton.TabIndex = 38;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 670);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.showReceiptButton);
             this.Controls.Add(this.returnedSignatureLabel);
             this.Controls.Add(this.signatureImageBox);
@@ -508,6 +520,7 @@
         private System.Windows.Forms.PictureBox signatureImageBox;
         private System.Windows.Forms.Label returnedSignatureLabel;
         private System.Windows.Forms.Button showReceiptButton;
+        private System.Windows.Forms.Button exitButton;
     }
 }
 

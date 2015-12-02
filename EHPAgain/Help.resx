@@ -118,12 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="helpText.Text" xml:space="preserve">
-    <value>Fill out all fields with data (Account Token, Transaction Type, Charge Type, Entry Method).
-OrderID can be changed manually for CREDIT and REFUND transactions, otherwise it is generated randomly which each transaction.
-Custom parameters are appending to the main parameter post, the first parameter should be preceded by '&amp;'
-Example:
-&amp;suppress_rcm_window=TRUE
-Query button performs Query on previous transaction so data can be parsed for receipts. Query is also automatically performed after transaction completes.</value>
+    <value>Complete all Visible and Editable Fields in order to process a transaction. Only valid Charge Types should be visible for each Transaction Type.
+Click Submit to begin the transaction. The Parameters that are sent with the transaction request are recorded in Post Parameters box.
+Post Parameters are logged in \logging\Log.txt
+When Transaction Conpletes, an applicable QUERY transaction is submitted to get the full transaction result details.
+All QUERY results are logged in \logging\Log.Txt
+Additional Parameters can be sent in the Custom Parameters box, the first parameter should be preceded by '&amp;'
+Example: &amp;suppress_rcm_window=TRUE
+
+Display Query Post will display the parameters used for the current QUERY transaction.
+Query will initiate an immediate query using the current transaction details. (This is the same QUERY executed when the submit button is pressed and the transaction completes.
+Show Receipt will parse the current QUERY data for the full customer receipt information and display it in a new window.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

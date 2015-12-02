@@ -21,7 +21,7 @@ namespace EHPAgain
     
     public partial class MainWindow : Form
     {
-        //public static string queryPost = null;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -152,6 +152,7 @@ namespace EHPAgain
                 string parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                   entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text); // Build Parameters for POST
                 postParametersText.Text = parameters;
+                writeToLog(parameters);
 
                 if (creditTypeCombo.Text == "INDEPENDENT" || chargeTypeCombo.Text != "CREDIT")
                 {
@@ -178,6 +179,7 @@ namespace EHPAgain
                 string parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                   entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
                 postParametersText.Text = parameters;
+                writeToLog(parameters);
 
                 string otk = PaymentEngine.webRequest_Post(parameters);
 
@@ -197,6 +199,7 @@ namespace EHPAgain
                 string parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                   entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text); // Build Parameters for POST
                 postParametersText.Text = parameters;
+                writeToLog(parameters);
 
                 if (creditTypeCombo.Text == "INDEPENDENT" || chargeTypeCombo.Text != "CREDIT")
                 {
@@ -400,6 +403,11 @@ namespace EHPAgain
         {
             string s = queryPaymentBrowser.DocumentText;
             writeToLog(s);
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

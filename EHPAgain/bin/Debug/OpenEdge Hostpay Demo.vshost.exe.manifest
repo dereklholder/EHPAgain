@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenEdge HostPay Demo.exe" size="58312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenEdge HostPay Demo.exe" size="59336">
       <assemblyIdentity name="OpenEdge HostPay Demo" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1XR/c2Eng/w5SjAR1lv1Vi6OuABopVp72Xw7GviZAc0=</dsig:DigestValue>
+        <dsig:DigestValue>CvwVzpCKlOV3i051Sqg0sfKXlXEAOjeWEEHoJtvDdvw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
