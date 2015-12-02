@@ -15,9 +15,9 @@ using Newtonsoft.Json; // Utilizes JSON.NET for parsing response from the gatewa
 
 namespace EHPAgain
 {
-    class PaymentEngine
+    class PaymentEngine  //General Class that Handles the Payment Functions, as well as building the strings used for various transaction Posts
     {
-        public struct JsonResponse
+        public struct JsonResponse //Struct for Parsing JSON for use in displaying Payment Page
         {
             public string sealedSetupParameters { get; set; }
             public string actionURL { get; set; }
@@ -28,7 +28,7 @@ namespace EHPAgain
         public static string otkURL = "https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/";
         public static string queryURL = "https://ws.test.paygateway.com/api/v1/transactions";
 
-        public static string webRequest_Post(string parameters) // Web Request POST to OpenEdge HostPay for Payment Page
+        public static string webRequest_Post(string parameters) // Web Request POST to OpenEdge HostPay for Payment Page, Used for all Transactiosn that utilize a payment page.
         {
 
             WebRequest request = WebRequest.Create(EdgeURL);
@@ -258,7 +258,6 @@ namespace EHPAgain
             return parameters;
 
         }
-
 
         public static string orderIDRandom(int size) //Code for creating Randomized OrderIDs
         {

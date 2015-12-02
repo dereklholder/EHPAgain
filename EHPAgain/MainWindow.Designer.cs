@@ -122,7 +122,6 @@
             this.accountTokenText.TabIndex = 4;
             this.accountTokenText.Text = "04173F8DCE65520D3580E5FF8555A961CECF249E46B5C2FAEFA04E248CD95FEA9D55BB581758D0591" +
     "B";
-            this.accountTokenText.TextChanged += new System.EventHandler(this.accountTokenText_TextChanged);
             // 
             // label1
             // 
@@ -150,7 +149,6 @@
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Order ID";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -190,7 +188,6 @@
             this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Charge Type";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // submitButton
             // 
@@ -218,7 +215,6 @@
             this.label7.Size = new System.Drawing.Size(84, 13);
             this.label7.TabIndex = 15;
             this.label7.Text = "Post Parameters";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // amountText
             // 
@@ -253,7 +249,6 @@
             this.label6.Size = new System.Drawing.Size(130, 13);
             this.label6.TabIndex = 19;
             this.label6.Text = "Query Payment Response";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // queryButton
             // 
@@ -278,7 +273,6 @@
             this.accountTypeCombo.Size = new System.Drawing.Size(161, 21);
             this.accountTypeCombo.TabIndex = 24;
             this.accountTypeCombo.Visible = false;
-            this.accountTypeCombo.SelectedIndexChanged += new System.EventHandler(this.accountTypeCombo_SelectedIndexChanged);
             // 
             // accountTypeLabel
             // 

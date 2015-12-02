@@ -26,15 +26,14 @@ namespace EHPAgain
         {
             InitializeComponent();
         }
-        //Transaction Condition Code vaiable, used for Check Transactions.
-        public string TCC = null;
+        
+        public string TCC = null; //Transaction Condition Code vaiable, used for Check Transactions. 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-
-        //Manage the Visible and Available Charge Types based on Transaction Type
-        private void transactionTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void transactionTypeCombo_SelectedIndexChanged(object sender, EventArgs e) //Manage the Visible and Available Charge Types based on Transaction Type 
         {
             
             if (transactionTypeCombo.Text == "DEBIT_CARD")
@@ -105,9 +104,8 @@ namespace EHPAgain
                 });
             }
         }
-
-        // Allow OrderID to be manually entered for Applicable Transactions, also Manage Independent vs Dependent credit box.
-        private void chargeTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
+       
+        private void chargeTypeCombo_SelectedIndexChanged(object sender, EventArgs e) // Allow OrderID to be manually entered for Applicable Transactions, also Manage Independent vs Dependent credit box.
         {
             
             
@@ -134,14 +132,8 @@ namespace EHPAgain
                 creditTypeCombo.Visible = false;
             }
         }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Submit button with Logic for sending correct transaction type.
-        private void submitButton_Click(object sender, EventArgs e)
+        
+        private void submitButton_Click(object sender, EventArgs e) //Submit button with Logic for sending correct transaction type. 
         {
             if (transactionTypeCombo.Text == "CREDIT_CARD")
             {
@@ -204,9 +196,7 @@ namespace EHPAgain
 
                 if (creditTypeCombo.Text == "INDEPENDENT" || chargeTypeCombo.Text != "CREDIT")
                 {
-                    string otk = PaymentEngine.webRequest_Post(parameters);
-
-                    //hostPay.DocumentText = PaymentEngine.webRequest_Post(parameters); // Send Post and Render in Browser Control  Deprecated
+                    string otk = PaymentEngine.webRequest_Post(parameters);                    
                     hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
                     string content = hostPay.DocumentText.ToString();
                 }
@@ -215,29 +205,15 @@ namespace EHPAgain
                     hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
             }
-            
-
         } 
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-        //Button for Performing QUERY.
-        private void queryButton_Click(object sender, EventArgs e)
+        
+        private void queryButton_Click(object sender, EventArgs e) //Button for Performing QUERY.
         {
             try
             {
                 string parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                                 transactionTypeCombo.Text, "QUERY_PAYMENT"); // Build Query
-                                                                             //Query_PAYMENT and QUERY_CREDIT have been tested.
                 postParametersText.Text = parameters;
-
                 queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 writeToLog(queryPaymentBrowser.DocumentText);
             }
@@ -248,29 +224,8 @@ namespace EHPAgain
                 writeToLog(s);
             }
         }
-
-        private void accountTokenText_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void followonLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void accountTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        //Query Payment if the  document contains paymentFinished Singal on Document Completed
-        private void hostPay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+       
+        private void hostPay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) //Query Payment if the  document contains paymentFinished Singal on Document Completed, In Addition Parse Signature if Signature Capture is enabled.
         {                     
             if (null != hostPay.Document && null != hostPay.Document.GetElementById("paymentFinishedSignal"))
             {
@@ -279,20 +234,17 @@ namespace EHPAgain
                 {
                     parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PAYMENT"); // Build Query
-                                                         //queryPost = parameters;
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
                 if (transactionTypeCombo.Text == "DEBIT_CARD")
                 {
                     parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PURCHASE"); // Build Query
-                                                         //queryPost = parameters;
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
                 writeToLog(queryPaymentBrowser.DocumentText);
-
             }
-            //Parse Signature From result
+            //Parse Signature From result, uses HtmlAgilityPack for easier parsing of document using XPath
             if (null != hostPay.Document && sigCapCheckBox.Checked == true && null != hostPay.Document.GetElementById("signatureImage"))
             {
                 HtmlAgilityPack.HtmlDocument docroot = new HtmlAgilityPack.HtmlDocument();
@@ -305,12 +257,10 @@ namespace EHPAgain
                     var signature = Base64ToImage(base64Signature);
                     signatureImageBox.Image = signature;
                 }
-
-            }
-            
-            
+            }      
         }
-        public Image Base64ToImage(string base64String)
+
+        public Image Base64ToImage(string base64String) //Convert Base64 to Image, Used  to parse Signature from result in hostPay_DocumentCompleted
         {
            
             //Convert Base64 String to byte[]
@@ -321,17 +271,15 @@ namespace EHPAgain
                 Image image = Image.FromStream(ms, true);
                 return image;
             }
-           
         }
-
-        //Display Help
-        private void helpButton_Click(object sender, EventArgs e)
+        
+        private void helpButton_Click(object sender, EventArgs e) //Display Help
         {
             Help H = new Help();
             H.ShowDialog();
-        }
-        //Set Transaction Condition Code based on SEC type selected in transaction Condition Code Box.
-        private void tccComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        } 
+        
+        private void tccComboBox_SelectedIndexChanged(object sender, EventArgs e) //Set Transaction Condition Code based on SEC type selected in transaction Condition Code Box.
         {
             
             if (tccComboBox.Text == "PPD")
@@ -354,9 +302,9 @@ namespace EHPAgain
             {
                 TCC = null;
             }
-        }
+        } 
 
-        private void queryPostButton_Click(object sender, EventArgs e)
+        private void queryPostButton_Click(object sender, EventArgs e) //Button Displays Form with data that is used for Query Payment transaction.
         {
             try
             {
@@ -373,7 +321,7 @@ namespace EHPAgain
             }
         }
 
-        private void showReceiptButton_Click(object sender, EventArgs e)
+        private void showReceiptButton_Click(object sender, EventArgs e) //Parse receipt from Query Browser that displays result of Query Payment, merely grabs full receipt data, URLDecodes, and sends that to a form
         {
             var queryContent = queryPaymentBrowser.DocumentText.ToString();
             NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryContent);
@@ -393,20 +341,21 @@ namespace EHPAgain
                 writeToLog(log);
             }
         }
-        public void writeToLog(string logString)
+
+        public void writeToLog(string logString) //Code for logging functions.
         {
             var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "Log.txt")).ToString();
             string timeStamp = DateTime.Now.ToString();
             File.AppendAllText(logPath, timeStamp + Environment.NewLine + logString + Environment.NewLine + "--------------------------------------------------" + Environment.NewLine);
         }
 
-        private void queryPaymentBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void queryPaymentBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) //Event Used to send Query data to log.
         {
             string s = queryPaymentBrowser.DocumentText;
             writeToLog(s);
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void exitButton_Click(object sender, EventArgs e) //Exit Button
         {
             this.Close();
         }
