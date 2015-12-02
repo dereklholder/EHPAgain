@@ -17,5 +17,6 @@ C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Deb
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.application
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.exe
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.pdb
-C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OEHP Demo.csprojResolveAssemblyReference.cache
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdgeHostPayDemo.Properties.Resources.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge HostPay Demo.exe.CodeAnalysisLog.xml
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge HostPay Demo.exe.lastcodeanalysissucceeded

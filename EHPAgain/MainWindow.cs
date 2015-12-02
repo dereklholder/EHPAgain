@@ -26,6 +26,7 @@ namespace EHPAgain
         {
             InitializeComponent();
         }
+        //Transaction Condition Code vaiable, used for Check Transactions.
         public string TCC = null;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -288,8 +289,8 @@ namespace EHPAgain
                                                          //queryPost = parameters;
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
-                
-                    
+                writeToLog(queryPaymentBrowser.DocumentText);
+
             }
             //Parse Signature From result
             if (null != hostPay.Document && sigCapCheckBox.Checked == true && null != hostPay.Document.GetElementById("signatureImage"))
@@ -306,7 +307,7 @@ namespace EHPAgain
                 }
 
             }
-            writeToLog(queryPaymentBrowser.DocumentText);
+            
             
         }
         public Image Base64ToImage(string base64String)
@@ -329,7 +330,7 @@ namespace EHPAgain
             Help H = new Help();
             H.ShowDialog();
         }
-
+        //Set Transaction Condition Code based on SEC type selected in transaction Condition Code Box.
         private void tccComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             
