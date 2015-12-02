@@ -1,0 +1,21 @@
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\HtmlAgilityPack.dll
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\Newtonsoft.Json.dll
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\HtmlAgilityPack.xml
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\Newtonsoft.Json.xml
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\EHPAgain.QueryPost.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\EHPAgain.Help.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\EHPAgain.MainWindow.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\EHPAgain.Properties.Resources.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\EHPAgain.Receipt.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OEHP Demo.csproj.GenerateResource.Cache
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge Hostpay Demo.exe.config
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge Hostpay Demo.exe.manifest
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge Hostpay Demo.application
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge Hostpay Demo.exe
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\OpenEdge Hostpay Demo.pdb
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.exe.manifest
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.application
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.exe
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdge Hostpay Demo.pdb
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OEHP Demo.csprojResolveAssemblyReference.cache
