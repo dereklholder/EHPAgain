@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Diagnostics.Tracing;
 using HtmlAgilityPack;
 using System.Web;
+using System.Data.SqlClient;
 
 /* Code for Demonstration Purposes by Derek Holder
  * For Demo Purposes Only, not intented for Live use */
@@ -28,9 +29,17 @@ namespace EHPAgain
         }
         
         public string TCC = null; //Transaction Condition Code vaiable, used for Check Transactions. 
+   
+        public static string LocalPath = AppDomain.CurrentDomain.BaseDirectory.ToString();
+        public static string ConnString = String.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;
+                                                    AttachDBFilename={0}MPDVault.MDF;
+                                                    Integrated Security= true;
+                                                    Connect Timeout=30;
+                                                    User Instance=false", LocalPath);
+        public static string newConnString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MPDVault.mdf;Integrated Security = True;";
         private void Form1_Load(object sender, EventArgs e)
         {
-
+         
         }
         
         private void transactionTypeCombo_SelectedIndexChanged(object sender, EventArgs e) //Manage the Visible and Available Charge Types based on Transaction Type 
@@ -46,6 +55,27 @@ namespace EHPAgain
                 returnedSignatureLabel.Visible = false;
                 chargeTypeCombo.Items.Clear();
                 chargeTypeCombo.Items.AddRange(new object[] 
+                {
+                    "PURCHASE",
+                    "REFUND"
+                });
+                entryModeCombo.Items.Clear();
+                entryModeCombo.Items.AddRange(new object[]
+                {
+                    "EMV",
+                    "HID"
+                });
+            }
+            if (transactionTypeCombo.Text == "INTERAC")
+            {
+                accountTypeCombo.Visible = true;
+                accountTypeLabel.Visible = true;
+                sigCapCheckBox.Visible = false;
+                tccComboBox.Visible = false;
+                tccLabel.Visible = false;
+                returnedSignatureLabel.Visible = false;
+                chargeTypeCombo.Items.Clear();
+                chargeTypeCombo.Items.AddRange(new object[]
                 {
                     "PURCHASE",
                     "REFUND"
@@ -93,7 +123,8 @@ namespace EHPAgain
                     "FORCE_SALE",
                     "AUTH",
                     "CAPTURE",
-                    "ADJUSTMENT"});
+                    "ADJUSTMENT",
+                    "SIGNATURE"});
                 entryModeCombo.Items.Clear();
                 entryModeCombo.Items.AddRange(new object[]
                 {
@@ -242,8 +273,11 @@ namespace EHPAgain
                     transactionTypeCombo.Text, "QUERY_PURCHASE"); // Build Query
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
-                writeToLog(queryPaymentBrowser.DocumentText);
+                //writeToLog(queryPaymentBrowser.DocumentText);
             }
+            
+
+
             //Parse Signature From result, uses HtmlAgilityPack for easier parsing of document using XPath
             if (null != hostPay.Document && sigCapCheckBox.Checked == true && null != hostPay.Document.GetElementById("signatureImage"))
             {
@@ -353,11 +387,63 @@ namespace EHPAgain
         {
             string s = queryPaymentBrowser.DocumentText;
             writeToLog(s);
+            // Grab Information for MPD Transactions, if it exists. WIP
+            NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryPaymentBrowser.DocumentText.ToString());
+            
+            try
+            {
+                string id = keyPairs.Get("receipt_approval_code");
+                string payer_Id = keyPairs.Get("payer_identifier");
+                string exp_mm = keyPairs.Get("expire_month");
+                string exp_yy = keyPairs.Get("expire_year");
+                string span = keyPairs.Get("span");
+                string label = DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
+                string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
+                writeToLog(forTheLogging);
+                using (SqlConnection conn = new SqlConnection(newConnString))
+                {
+                    SqlCommand addToken = new SqlCommand(@"INSERT INTO tokenVault (Id, Payer_Identifier, SPAN, EXP_MM, EXP_YY, Label) 
+                                                                        VALUES (@Id,@payer_ID,@SPAN,@EXP_MM,@EXP_YY,@Label)", conn);
+                    addToken.Parameters.AddWithValue("@Id", id);
+                    addToken.Parameters.AddWithValue("@payer_ID", payer_Id);
+                    addToken.Parameters.AddWithValue("@exp_mm", exp_mm);
+                    addToken.Parameters.AddWithValue("@exp_yy", exp_yy);
+                    addToken.Parameters.AddWithValue("@span", span);
+                    addToken.Parameters.AddWithValue("@Label", label);
+                    conn.Open();
+                    addToken.ExecuteNonQuery();
+                    conn.Close();
+                    
+                }
+                
+            }
+            catch (SqlException ex)
+            {
+                writeToLog(ex.ToString());
+                //MessageBox.Show("An Error Has Occured when Communicating to the Database, Please Check the Log");
+                
+            }
+            catch (Exception ex)
+            {
+                writeToLog(ex.ToString());
+            }
         }
 
         private void exitButton_Click(object sender, EventArgs e) //Exit Button
         {
             this.Close();
+        }
+
+        private void mpdButton_Click(object sender, EventArgs e)
+        {
+            OpenEdgeHostPayDemo.MPDTransactions m = new OpenEdgeHostPayDemo.MPDTransactions();
+            m.Show();
+            this.Hide();
+        }
+
+        private void entryModeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

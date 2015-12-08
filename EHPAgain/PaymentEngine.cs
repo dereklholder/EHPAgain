@@ -31,95 +31,111 @@ namespace EHPAgain
         public static string webRequest_Post(string parameters) // Web Request POST to OpenEdge HostPay for Payment Page, Used for all Transactiosn that utilize a payment page.
         {
 
-            WebRequest request = WebRequest.Create(EdgeURL);
+            try
+            {
+                WebRequest request = WebRequest.Create(EdgeURL);
 
-            //Set reuqest to POST
-            request.Method = "POST";
-            //Create Post data and Convert it to a byte array.
+                //Set reuqest to POST
+                request.Method = "POST";
+                //Create Post data and Convert it to a byte array.
 
-            string postData = parameters;
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                string postData = parameters;
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
-            //set ContentType Property to proper setting for WebRequest
-            request.ContentType = "application/x-www-form-urlencoded";
+                //set ContentType Property to proper setting for WebRequest
+                request.ContentType = "application/x-www-form-urlencoded";
 
-            //set the ContentLength property
-            request.ContentLength = byteArray.Length;
+                //set the ContentLength property
+                request.ContentLength = byteArray.Length;
 
-            //Get the request stream.
-            Stream dataStream = request.GetRequestStream();
+                //Get the request stream.
+                Stream dataStream = request.GetRequestStream();
 
-            //Write the datat to teh request stream.
-            dataStream.Write(byteArray, 0, byteArray.Length);
+                //Write the datat to teh request stream.
+                dataStream.Write(byteArray, 0, byteArray.Length);
 
-            //close the stream
-            dataStream.Close();
+                //close the stream
+                dataStream.Close();
 
-            //Get the response
-            WebResponse response = request.GetResponse();
+                //Get the response
+                WebResponse response = request.GetResponse();
 
-            //Get the stream contaiing content returned byt ghe server.
-            dataStream = response.GetResponseStream();
+                //Get the stream contaiing content returned byt ghe server.
+                dataStream = response.GetResponseStream();
 
-            // Open the Stream using a streamreader for easy access.
-            StreamReader reader = new StreamReader(dataStream);
+                // Open the Stream using a streamreader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
 
-            //Read the Content
-            string responseFromServer = reader.ReadToEnd();
-            //Cleanign time
-            reader.Close();
-            response.Close();
+                //Read the Content
+                string responseFromServer = reader.ReadToEnd();
+                //Cleanign time
+                reader.Close();
+                response.Close();
 
-            JsonResponse json = new JsonResponse();
-            json = JsonConvert.DeserializeObject<JsonResponse>(responseFromServer); //Deserialize JSON response from Server. Utilizing JSON.NET library.
+                JsonResponse json = new JsonResponse();
+                json = JsonConvert.DeserializeObject<JsonResponse>(responseFromServer); //Deserialize JSON response from Server. Utilizing JSON.NET library.
 
-            string ssp = json.sealedSetupParameters; //Pull sealedSetupParameters from JSON response
-            return ssp;
+                string ssp = json.sealedSetupParameters; //Pull sealedSetupParameters from JSON response
+                return ssp;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return null;
+            }
             
         }
 
         public static string webRequest_Query(string parameters) // Web Request POST to OpenEdge HostPay for QUERY or DEPENDENT CREDIT
         {
-            WebRequest request = WebRequest.Create(queryURL);
+            try
+            {
+                WebRequest request = WebRequest.Create(queryURL);
 
-            //Set reuqest to POST
-            request.Method = "POST";
-            //Create Post data nd Convert it to a byte array.
+                //Set reuqest to POST
+                request.Method = "POST";
+                //Create Post data nd Convert it to a byte array.
 
-            string postData = parameters;
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                string postData = parameters;
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
-            //set ContentType Property to proper setting for WebRequest
-            request.ContentType = "application/x-www-form-urlencoded";
+                //set ContentType Property to proper setting for WebRequest
+                request.ContentType = "application/x-www-form-urlencoded";
 
-            //set the ContentLength property
-            request.ContentLength = byteArray.Length;
+                //set the ContentLength property
+                request.ContentLength = byteArray.Length;
 
-            //Get the request stream.
-            Stream dataStream = request.GetRequestStream();
+                //Get the request stream.
+                Stream dataStream = request.GetRequestStream();
 
-            //Write the datat to teh request stream.
-            dataStream.Write(byteArray, 0, byteArray.Length);
+                //Write the datat to teh request stream.
+                dataStream.Write(byteArray, 0, byteArray.Length);
 
-            //close the stream
-            dataStream.Close();
+                //close the stream
+                dataStream.Close();
 
-            //Get the response
-            WebResponse response = request.GetResponse();
+                //Get the response
+                WebResponse response = request.GetResponse();
 
-            //Get the stream contaiing content returned byt ghe server.
-            dataStream = response.GetResponseStream();
+                //Get the stream contaiing content returned byt ghe server.
+                dataStream = response.GetResponseStream();
 
-            // Open the Stream using a streamreader for easy access.
-            StreamReader reader = new StreamReader(dataStream);
+                // Open the Stream using a streamreader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
 
-            //Read the Content
-            string responseFromServer = reader.ReadToEnd();
-            //Cleanign time
-            reader.Close();
-            response.Close();
+                //Read the Content
+                string responseFromServer = reader.ReadToEnd();
+                //Cleanign time
+                reader.Close();
+                response.Close();
 
-            return responseFromServer;
+                return responseFromServer;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return null;
+            }
 
         }
 
@@ -257,6 +273,33 @@ namespace EHPAgain
                 ;
             return parameters;
 
+        }
+
+        //MPD ParamBuilder WIP
+        public static string mpdBuilder(string accountToken, string orderID, string transactionType, string chargeType, string chargeAmount, string payer_id, string span, string expYY, string expMM)
+        {
+            string accountTokenBuilder = "account_token=" + accountToken;
+            string transactionTypeBuilder = "transaction_type=" + transactionType;
+            string chargeTypeBuilder = "charge_type=" + chargeType;
+            string orderIDBuilder = "order_id=" + orderID;
+            string payerIDBuilder = "payer_identifier=" + payer_id;
+            string spanBuilder = "span=" + span;
+            string expYYBuilder = "expire_year=" + expYY;
+            string expMMBuilder = "expire_month=" + expMM;
+            string amountBuilder = "charge_total=" + chargeAmount;
+
+            string parameters = accountTokenBuilder
+                                + "&" + transactionTypeBuilder
+                                + "&" + chargeTypeBuilder
+                                + "&" + orderIDBuilder
+                                + "&" + payerIDBuilder
+                                + "&" + spanBuilder
+                                //+ "&" + expMMBuilder
+                                //+ "&" + expYYBuilder
+                                + "&" + amountBuilder
+                                + "&" + "managed_payer_data=true"
+                ;
+            return parameters;
         }
 
         public static string orderIDRandom(int size) //Code for creating Randomized OrderIDs

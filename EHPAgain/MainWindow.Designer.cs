@@ -64,6 +64,7 @@
             this.returnedSignatureLabel = new System.Windows.Forms.Label();
             this.showReceiptButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.mpdButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +73,7 @@
             this.hostPay.Location = new System.Drawing.Point(16, 317);
             this.hostPay.MinimumSize = new System.Drawing.Size(20, 20);
             this.hostPay.Name = "hostPay";
-            this.hostPay.Size = new System.Drawing.Size(840, 341);
+            this.hostPay.Size = new System.Drawing.Size(891, 341);
             this.hostPay.TabIndex = 0;
             this.hostPay.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.hostPay_DocumentCompleted);
             // 
@@ -83,7 +84,8 @@
             this.transactionTypeCombo.Items.AddRange(new object[] {
             "CREDIT_CARD",
             "DEBIT_CARD",
-            "ACH"});
+            "ACH",
+            "INTERAC"});
             this.transactionTypeCombo.Location = new System.Drawing.Point(9, 64);
             this.transactionTypeCombo.Name = "transactionTypeCombo";
             this.transactionTypeCombo.Size = new System.Drawing.Size(161, 21);
@@ -104,13 +106,14 @@
             this.entryModeCombo.Name = "entryModeCombo";
             this.entryModeCombo.Size = new System.Drawing.Size(121, 21);
             this.entryModeCombo.TabIndex = 2;
+            this.entryModeCombo.SelectedIndexChanged += new System.EventHandler(this.entryModeCombo_SelectedIndexChanged);
             // 
             // orderIDText
             // 
             this.orderIDText.Location = new System.Drawing.Point(603, 64);
             this.orderIDText.Name = "orderIDText";
             this.orderIDText.ReadOnly = true;
-            this.orderIDText.Size = new System.Drawing.Size(253, 20);
+            this.orderIDText.Size = new System.Drawing.Size(300, 20);
             this.orderIDText.TabIndex = 3;
             // 
             // accountTokenText
@@ -311,9 +314,9 @@
             // 
             this.customParameterBox.Location = new System.Drawing.Point(603, 104);
             this.customParameterBox.Name = "customParameterBox";
-            this.customParameterBox.Size = new System.Drawing.Size(253, 131);
+            this.customParameterBox.Size = new System.Drawing.Size(300, 89);
             this.customParameterBox.TabIndex = 28;
-            this.customParameterBox.Text = "&prompt_signature=true";
+            this.customParameterBox.Text = "&prompt_signature=true&manage_payer_data=true";
             // 
             // label9
             // 
@@ -326,7 +329,7 @@
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(700, 22);
+            this.helpButton.Location = new System.Drawing.Point(747, 22);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(75, 23);
             this.helpButton.TabIndex = 30;
@@ -421,7 +424,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(781, 22);
+            this.exitButton.Location = new System.Drawing.Point(828, 22);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(75, 23);
             this.exitButton.TabIndex = 38;
@@ -429,11 +432,22 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // mpdButton
+            // 
+            this.mpdButton.Location = new System.Drawing.Point(9, 154);
+            this.mpdButton.Name = "mpdButton";
+            this.mpdButton.Size = new System.Drawing.Size(161, 23);
+            this.mpdButton.TabIndex = 40;
+            this.mpdButton.Text = "MPD Transactions";
+            this.mpdButton.UseVisualStyleBackColor = true;
+            this.mpdButton.Click += new System.EventHandler(this.mpdButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 670);
+            this.Controls.Add(this.mpdButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.showReceiptButton);
             this.Controls.Add(this.returnedSignatureLabel);
@@ -515,6 +529,7 @@
         private System.Windows.Forms.Label returnedSignatureLabel;
         private System.Windows.Forms.Button showReceiptButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button mpdButton;
     }
 }
 
