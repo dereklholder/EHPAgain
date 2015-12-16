@@ -140,7 +140,7 @@ namespace EHPAgain
         {
             
             
-            if (chargeTypeCombo.Text == "CREDIT" || chargeTypeCombo.Text == "REFUND" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "VOID")
+            if (chargeTypeCombo.Text == "CREDIT" || chargeTypeCombo.Text == "REFUND" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text =="CAPTURE")
             {
                 orderIDText.ReadOnly = false;
 
@@ -169,7 +169,7 @@ namespace EHPAgain
             if (transactionTypeCombo.Text == "CREDIT_CARD")
             {
                 hostPay.Navigate("about:blank");
-                if (chargeTypeCombo.Text != "CREDIT" && chargeTypeCombo.Text != "VOID" && chargeTypeCombo.Text != "FORCE_SALE")
+                if (chargeTypeCombo.Text != "CREDIT" && chargeTypeCombo.Text != "VOID" && chargeTypeCombo.Text != "FORCE_SALE" && chargeTypeCombo.Text != "CAPTURE")
                 {
                     orderIDText.Text = PaymentEngine.orderIDRandom(8); //Create Random OrderID
                 }          
@@ -182,11 +182,10 @@ namespace EHPAgain
                 {
                     string otk = PaymentEngine.webRequest_Post(parameters);
 
-                    //hostPay.DocumentText = PaymentEngine.webRequest_Post(parameters); // Send Post and Render in Browser Control  Deprecated
                     hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
                     string content = hostPay.DocumentText.ToString();
                 }
-                if (creditTypeCombo.Text == "DEPENDENT" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text == "FORCE_SALE")
+                if (creditTypeCombo.Text == "DEPENDENT" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "CAPTURE")
                 {
                     hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
@@ -207,7 +206,6 @@ namespace EHPAgain
 
                 string otk = PaymentEngine.webRequest_Post(parameters);
 
-                //hostPay.DocumentText = PaymentEngine.webRequest_Post(parameters); // Send Post and Render in Browser Control  Deprecated
                 hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
                 string content = hostPay.DocumentText.ToString();
                 
@@ -273,7 +271,6 @@ namespace EHPAgain
                     transactionTypeCombo.Text, "QUERY_PURCHASE"); // Build Query
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
-                //writeToLog(queryPaymentBrowser.DocumentText);
             }
             
 
@@ -402,7 +399,7 @@ namespace EHPAgain
                 writeToLog(forTheLogging);
                 using (SqlConnection conn = new SqlConnection(newConnString))
                 {
-                    SqlCommand addToken = new SqlCommand(@"INSERT INTO tokenVault (Id, Payer_Identifier, SPAN, EXP_MM, EXP_YY, Label) 
+                    SqlCommand addToken = new SqlCommand(@"INSERT INTO dbo.tokenVault (Id, Payer_Identifier, SPAN, EXP_MM, EXP_YY, Label) 
                                                                         VALUES (@Id,@payer_ID,@SPAN,@EXP_MM,@EXP_YY,@Label)", conn);
                     addToken.Parameters.AddWithValue("@Id", id);
                     addToken.Parameters.AddWithValue("@payer_ID", payer_Id);
@@ -444,6 +441,11 @@ namespace EHPAgain
         private void entryModeCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

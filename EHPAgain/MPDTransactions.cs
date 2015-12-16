@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace OpenEdgeHostPayDemo
 {
@@ -56,7 +57,8 @@ namespace OpenEdgeHostPayDemo
                     "FORCE_SALE",
                     "AUTH",
                     "CAPTURE",
-                    "ADJUSTMENT",});
+                    "ADJUSTMENT",
+                    "DELETE_CUSTOMER"});
             }
         }
 
@@ -99,15 +101,30 @@ namespace OpenEdgeHostPayDemo
 
         }
 
-        private void submitButton_Click(object sender, EventArgs e)
+        private void submitButton_Click(object sender, EventArgs e) // Perform MPD Transaction using Supplied parameters
         {
-            orderIDText.Text = EHPAgain.PaymentEngine.orderIDRandom(8);
-            string parameters = EHPAgain.PaymentEngine.mpdBuilder(accountTokenText.Text, orderIDText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, amountBox.Text, payerIdentifierBox.Text, spanTextBox.Text, expYYCombo.Text, expMMCombo.Text);
-            postParametersText.Text = parameters;
+            try
+            {
+                orderIDText.Text = EHPAgain.PaymentEngine.orderIDRandom(8);
+                string parameters = EHPAgain.PaymentEngine.mpdBuilder(accountTokenText.Text, orderIDText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, amountBox.Text, payerIdentifierBox.Text, spanTextBox.Text, expYYCombo.Text, expMMCombo.Text);
+                postParametersText.Text = parameters;
+                writeToLog(parameters);
 
-            hostPayWB.DocumentText = EHPAgain.PaymentEngine.webRequest_Query(parameters);
+                hostPayWB.DocumentText = EHPAgain.PaymentEngine.webRequest_Query(parameters);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error has Occured, please check the log.");
+                writeToLog(ex.ToString());
+            }
 
+        }
 
+        public void writeToLog(string logString) //Code for logging functions.
+        {
+            var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "Log.txt")).ToString();
+            string timeStamp = DateTime.Now.ToString();
+            File.AppendAllText(logPath, timeStamp + Environment.NewLine + logString + Environment.NewLine + "--------------------------------------------------" + Environment.NewLine);
         }
     }
 }

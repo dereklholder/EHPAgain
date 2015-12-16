@@ -257,6 +257,7 @@
             this.expMMCombo.Name = "expMMCombo";
             this.expMMCombo.Size = new System.Drawing.Size(42, 21);
             this.expMMCombo.TabIndex = 22;
+            this.expMMCombo.Visible = false;
             // 
             // expYYCombo
             // 
@@ -282,6 +283,7 @@
             this.expYYCombo.Name = "expYYCombo";
             this.expYYCombo.Size = new System.Drawing.Size(42, 21);
             this.expYYCombo.TabIndex = 23;
+            this.expYYCombo.Visible = false;
             // 
             // expMMLabel
             // 
@@ -291,6 +293,7 @@
             this.expMMLabel.Size = new System.Drawing.Size(46, 13);
             this.expMMLabel.TabIndex = 24;
             this.expMMLabel.Text = "Exp MM";
+            this.expMMLabel.Visible = false;
             // 
             // expYYLabel
             // 
@@ -300,6 +303,7 @@
             this.expYYLabel.Size = new System.Drawing.Size(42, 13);
             this.expYYLabel.TabIndex = 25;
             this.expYYLabel.Text = "Exp YY";
+            this.expYYLabel.Visible = false;
             // 
             // label3
             // 

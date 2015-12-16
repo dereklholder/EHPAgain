@@ -275,7 +275,7 @@ namespace EHPAgain
 
         }
 
-        //MPD ParamBuilder WIP
+        //MPD ParamBuilder
         public static string mpdBuilder(string accountToken, string orderID, string transactionType, string chargeType, string chargeAmount, string payer_id, string span, string expYY, string expMM)
         {
             string accountTokenBuilder = "account_token=" + accountToken;
@@ -284,8 +284,8 @@ namespace EHPAgain
             string orderIDBuilder = "order_id=" + orderID;
             string payerIDBuilder = "payer_identifier=" + payer_id;
             string spanBuilder = "span=" + span;
-            string expYYBuilder = "expire_year=" + expYY;
-            string expMMBuilder = "expire_month=" + expMM;
+            //string expYYBuilder = "expire_year=" + expYY; Update Customer not yet implemented into API, 
+            //string expMMBuilder = "expire_month=" + expMM;
             string amountBuilder = "charge_total=" + chargeAmount;
 
             string parameters = accountTokenBuilder
