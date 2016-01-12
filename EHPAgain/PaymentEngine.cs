@@ -199,7 +199,34 @@ namespace EHPAgain
             return parameters;
 
         }
-        
+
+        //Credit ParamBuilder
+        public static string ParamBuilderAppCode(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string approvalCode, string customParameters) // Builds Parameters for WebPost
+        {
+
+            string entryModeBuilder = "entry_mode=" + entryMode;
+            string transactionTypeBuilder = "transaction_type=" + transactionType;
+            string chargeTypeBuilder = "charge_type=" + chargeType;
+            string chargeAmountBuilder = "charge_total=" + chargeAmount;
+            string orderIDBuilder = "order_id=" + orderID;
+            string accountTokenBuilder = "account_token=" + accountToken;
+            string approvalCodeBuilder = "bank_approval_code" + approvalCode;
+
+
+
+            string parameters = accountTokenBuilder
+                                + "&" + transactionTypeBuilder
+                                + "&" + entryModeBuilder
+                                + "&" + chargeTypeBuilder
+                                + "&" + chargeAmountBuilder
+                                + "&" + orderIDBuilder
+                                + "&" + "duplicate_check=NO_CHECK"
+                                + customParameters
+                ;
+            return parameters;
+
+        }
+
         //Debit Param Builder Overload
         public static string ParamBuilder(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string accountType, string customParameters) // Builds Parameters for WebPost
         {

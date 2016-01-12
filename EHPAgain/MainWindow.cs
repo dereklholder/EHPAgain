@@ -47,6 +47,10 @@ namespace EHPAgain
             switch (transactionTypeCombo.Text)
             {
                 case "DEBIT_CARD":
+                    creditTypeCombo.Visible = false;
+                    creditTypeLabel.Visible = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     accountTypeCombo.Visible = true;
                     accountTypeLabel.Visible = true;
                     sigCapCheckBox.Visible = false;
@@ -68,6 +72,10 @@ namespace EHPAgain
                     break;
 
                 case "CREDIT_CARD":
+                    creditTypeCombo.Visible = false;
+                    creditTypeLabel.Visible = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     accountTypeCombo.Visible = false;
                     accountTypeLabel.Visible = false;
                     tccComboBox.Visible = false;
@@ -95,6 +103,10 @@ namespace EHPAgain
                     break;
 
                 case "ACH":
+                    creditTypeCombo.Visible = false;
+                    creditTypeLabel.Visible = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     tccComboBox.Visible = true;
                     tccLabel.Visible = true;
                     accountTypeCombo.Visible = false;
@@ -115,6 +127,10 @@ namespace EHPAgain
                     break;
 
                 case "INTERAC":
+                    creditTypeCombo.Visible = false;
+                    creditTypeLabel.Visible = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     accountTypeCombo.Visible = false;
                     accountTypeLabel.Visible = false;
                     sigCapCheckBox.Visible = false;
@@ -137,99 +153,7 @@ namespace EHPAgain
 
                 default:
                     break;
-
             }
-
-            /* Ugly IF  then statements
-            if (transactionTypeCombo.Text == "DEBIT_CARD")
-            {
-                accountTypeCombo.Visible = true;
-                accountTypeLabel.Visible = true;
-                sigCapCheckBox.Visible = false;
-                tccComboBox.Visible = false;
-                tccLabel.Visible = false;
-                returnedSignatureLabel.Visible = false;
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[] 
-                {
-                    "PURCHASE",
-                    "REFUND"
-                });
-                entryModeCombo.Items.Clear();
-                entryModeCombo.Items.AddRange(new object[]
-                {
-                    "EMV",
-                    "HID"
-                });
-            }
-            if (transactionTypeCombo.Text == "INTERAC")
-            {
-                accountTypeCombo.Visible = false;
-                accountTypeLabel.Visible = false;
-                sigCapCheckBox.Visible = false;
-                tccComboBox.Visible = false;
-                tccLabel.Visible = false;
-                returnedSignatureLabel.Visible = false;
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[]
-                {
-                    "PURCHASE",
-                    "REFUND"
-                });
-                entryModeCombo.Items.Clear();
-                entryModeCombo.Items.AddRange(new object[]
-                {
-                    "EMV",
-                    "HID"
-                });
-            }
-            if (transactionTypeCombo.Text == "ACH")
-            {
-                tccComboBox.Visible = true;
-                tccLabel.Visible = true;
-                accountTypeCombo.Visible = false;
-                accountTypeLabel.Visible = false;
-                sigCapCheckBox.Visible = false;
-                returnedSignatureLabel.Visible = false;
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[] 
-                {
-                    "DEBIT",
-                    "CREDIT"
-                });
-                entryModeCombo.Items.Clear();
-                entryModeCombo.Items.AddRange(new object[]
-                {
-                    "KEYED"
-                });
-            }
-            if (transactionTypeCombo.Text == "CREDIT_CARD")
-            {
-                accountTypeCombo.Visible = false;
-                accountTypeLabel.Visible = false;
-                tccComboBox.Visible = false;
-                tccLabel.Visible = false;
-                sigCapCheckBox.Visible = true;
-                returnedSignatureLabel.Visible = true;
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[] {
-                    "SALE",
-                    "CREDIT",
-                    "VOID",
-                    "FORCE_SALE",
-                    "AUTH",
-                    "CAPTURE",
-                    "ADJUSTMENT",
-                    "SIGNATURE"});
-                entryModeCombo.Items.Clear();
-                entryModeCombo.Items.AddRange(new object[]
-                {
-                    "KEYED",
-                    "EMV",
-                    "HID",
-                    "SWIPED"
-                });
-            }*/
         }
        
         private void chargeTypeCombo_SelectedIndexChanged(object sender, EventArgs e) // Allow OrderID to be manually entered for Applicable Transactions, also Manage Independent vs Dependent credit box.
@@ -238,6 +162,8 @@ namespace EHPAgain
             {
                 case "CREDIT":
                     orderIDText.ReadOnly = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     switch (transactionTypeCombo.Text)
                     {
                         case "CREDIT_CARD":
@@ -253,19 +179,26 @@ namespace EHPAgain
                     break;
                 case "REFUND":
                     orderIDText.ReadOnly = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     break;
 
                 case "FORCE_SALE":
                     orderIDText.ReadOnly = false;
-                    // Need to Implement Approval Code NYI
+                    approvalCodeLabel.Visible = true;
+                    approvalCodeBox.Visible = true;
                     break;
 
                 case "VOID":
                     orderIDText.ReadOnly = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     break;
 
                 case "CAPTURE":
                     orderIDText.ReadOnly = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     //Need to implement approval code
                     break;
 
@@ -273,31 +206,10 @@ namespace EHPAgain
                     orderIDText.ReadOnly = true;
                     creditTypeLabel.Visible = false;
                     creditTypeCombo.Visible = false;
+                    approvalCodeLabel.Visible = false;
+                    approvalCodeBox.Visible = false;
                     break;
             }
-            /* Old IF then Statments
-            if (chargeTypeCombo.Text == "CREDIT" || chargeTypeCombo.Text == "REFUND" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text =="CAPTURE")
-            {
-                orderIDText.ReadOnly = false;
-
-                if (transactionTypeCombo.Text == "CREDIT_CARD" && chargeTypeCombo.Text == "CREDIT")
-                {
-                    creditTypeLabel.Visible = true;
-                    creditTypeCombo.Visible = true;
-                }
-                else
-                {
-                    creditTypeCombo.Visible = false;
-                    creditTypeLabel.Visible = false;
-                }
-                
-            }
-            else
-            {
-                orderIDText.ReadOnly = true;
-                creditTypeLabel.Visible = false;
-                creditTypeCombo.Visible = false;
-            }*/
         }
         
         private void submitButton_Click(object sender, EventArgs e) //Submit button with Logic for sending correct transaction type. 
@@ -501,78 +413,7 @@ namespace EHPAgain
                 default:
                     MessageBox.Show("An Error has occured, Invalid Transaction Parameters");
                     break;
-
-            }
-
-            /* Super Ugly code that will make your brain hurt.
-            if (transactionTypeCombo.Text == "CREDIT_CARD")
-            {
-                hostPay.Navigate("about:blank");
-                if (chargeTypeCombo.Text != "CREDIT" && chargeTypeCombo.Text != "VOID" && chargeTypeCombo.Text != "FORCE_SALE" && chargeTypeCombo.Text != "CAPTURE")
-                {
-                    orderIDText.Text = PaymentEngine.orderIDRandom(8); //Create Random OrderID
-                }          
-                string parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                  entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text); // Build Parameters for POST
-                postParametersText.Text = parameters;
-                writeToLog(parameters);
-
-                if (creditTypeCombo.Text == "INDEPENDENT" || chargeTypeCombo.Text != "CREDIT")
-                {
-                    string otk = PaymentEngine.webRequest_Post(parameters);
-
-                    hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
-                    string content = hostPay.DocumentText.ToString();
-                }
-                if (creditTypeCombo.Text == "DEPENDENT" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "CAPTURE")
-                {
-                    hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
-                }
-                
-               
-            }
-            if (transactionTypeCombo.Text == "DEBIT_CARD" || transactionTypeCombo.Text =="INTERAC")
-            {
-                hostPay.Navigate("about:blank");
-                if (chargeTypeCombo.Text != "REFUND")
-                {
-                    orderIDText.Text = PaymentEngine.orderIDRandom(8); //Create Random OrderID
-                }            
-                string parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                  entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
-                postParametersText.Text = parameters;
-                writeToLog(parameters);
-
-                string otk = PaymentEngine.webRequest_Post(parameters);
-
-                hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
-                string content = hostPay.DocumentText.ToString();
-                
-                
-            }
-            if (transactionTypeCombo.Text == "ACH")
-            {
-                hostPay.Navigate("about:blank");
-                if (chargeTypeCombo.Text != "CREDIT")
-                {
-                    orderIDText.Text = PaymentEngine.orderIDRandom(8); //Create Random OrderID
-                }
-                string parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                  entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text); // Build Parameters for POST
-                postParametersText.Text = parameters;
-                writeToLog(parameters);
-
-                if (creditTypeCombo.Text == "INDEPENDENT" || chargeTypeCombo.Text != "CREDIT")
-                {
-                    string otk = PaymentEngine.webRequest_Post(parameters);                    
-                    hostPay.Navigate("https://ws.test.paygateway.com/HostPayService/v1/hostpay/paypage/" + otk); //Navigate Web Browser to Paypage URL + Session Token
-                    string content = hostPay.DocumentText.ToString();
-                }
-                if (creditTypeCombo.Text == "DEPENDENT")
-                {
-                    hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
-                }
-            }*/
+            }          
         } 
         
         private void queryButton_Click(object sender, EventArgs e) //Button for Performing QUERY.
@@ -594,7 +435,8 @@ namespace EHPAgain
         }
        
         private void hostPay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) //Query Payment if the  document contains paymentFinished Singal on Document Completed, In Addition Parse Signature if Signature Capture is enabled.
-        {                     
+        {
+
             if (null != hostPay.Document && null != hostPay.Document.GetElementById("paymentFinishedSignal"))
             {
                 string parameters = null;
@@ -611,8 +453,6 @@ namespace EHPAgain
                     queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
             }
-            
-
 
             //Parse Signature From result, uses HtmlAgilityPack for easier parsing of document using XPath
             if (null != hostPay.Document && sigCapCheckBox.Checked == true && null != hostPay.Document.GetElementById("signatureImage"))
@@ -702,8 +542,6 @@ namespace EHPAgain
                 Receipt r = new Receipt();
                 r.ReceiptText = receiptData.Replace("\n", "\r\n");
                 r.ShowDialog();
-                
-
             }
             catch (NullReferenceException ex)
             {           
@@ -789,6 +627,11 @@ namespace EHPAgain
         }
 
         private void accountTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void approvalCodeLabel_Click(object sender, EventArgs e)
         {
 
         }

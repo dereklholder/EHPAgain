@@ -65,6 +65,8 @@
             this.showReceiptButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.mpdButton = new System.Windows.Forms.Button();
+            this.approvalCodeLabel = new System.Windows.Forms.Label();
+            this.approvalCodeBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,17 +168,6 @@
             // 
             this.chargeTypeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.chargeTypeCombo.FormattingEnabled = true;
-            this.chargeTypeCombo.Items.AddRange(new object[] {
-            "SALE",
-            "FORCE_SALE",
-            "AUTH",
-            "CAPTURE",
-            "VOID",
-            "CREDIT",
-            "ADJUSTMENT",
-            "PURCHASE",
-            "REFUND",
-            "DEBIT"});
             this.chargeTypeCombo.Location = new System.Drawing.Point(309, 64);
             this.chargeTypeCombo.Name = "chargeTypeCombo";
             this.chargeTypeCombo.Size = new System.Drawing.Size(121, 21);
@@ -443,11 +434,32 @@
             this.mpdButton.UseVisualStyleBackColor = true;
             this.mpdButton.Click += new System.EventHandler(this.mpdButton_Click);
             // 
+            // approvalCodeLabel
+            // 
+            this.approvalCodeLabel.AutoSize = true;
+            this.approvalCodeLabel.Location = new System.Drawing.Point(179, 88);
+            this.approvalCodeLabel.Name = "approvalCodeLabel";
+            this.approvalCodeLabel.Size = new System.Drawing.Size(77, 13);
+            this.approvalCodeLabel.TabIndex = 41;
+            this.approvalCodeLabel.Text = "Approval Code";
+            this.approvalCodeLabel.Visible = false;
+            this.approvalCodeLabel.Click += new System.EventHandler(this.approvalCodeLabel_Click);
+            // 
+            // approvalCodeBox
+            // 
+            this.approvalCodeBox.Location = new System.Drawing.Point(182, 105);
+            this.approvalCodeBox.Name = "approvalCodeBox";
+            this.approvalCodeBox.Size = new System.Drawing.Size(121, 20);
+            this.approvalCodeBox.TabIndex = 42;
+            this.approvalCodeBox.Visible = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 670);
+            this.Controls.Add(this.approvalCodeBox);
+            this.Controls.Add(this.approvalCodeLabel);
             this.Controls.Add(this.mpdButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.showReceiptButton);
@@ -532,6 +544,8 @@
         private System.Windows.Forms.Button showReceiptButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button mpdButton;
+        private System.Windows.Forms.Label approvalCodeLabel;
+        private System.Windows.Forms.TextBox approvalCodeBox;
     }
 }
 
