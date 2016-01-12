@@ -44,7 +44,103 @@ namespace EHPAgain
         
         private void transactionTypeCombo_SelectedIndexChanged(object sender, EventArgs e) //Manage the Visible and Available Charge Types based on Transaction Type 
         {
-            
+            switch (transactionTypeCombo.Text)
+            {
+                case "DEBIT_CARD":
+                    accountTypeCombo.Visible = true;
+                    accountTypeLabel.Visible = true;
+                    sigCapCheckBox.Visible = false;
+                    tccComboBox.Visible = false;
+                    tccLabel.Visible = false;
+                    returnedSignatureLabel.Visible = false;
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[]
+                    {
+                    "PURCHASE",
+                    "REFUND"
+                    });
+                    entryModeCombo.Items.Clear();
+                    entryModeCombo.Items.AddRange(new object[]
+                    {
+                    "EMV",
+                    "HID"
+                    });
+                    break;
+
+                case "CREDIT_CARD":
+                    accountTypeCombo.Visible = false;
+                    accountTypeLabel.Visible = false;
+                    tccComboBox.Visible = false;
+                    tccLabel.Visible = false;
+                    sigCapCheckBox.Visible = true;
+                    returnedSignatureLabel.Visible = true;
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[] {
+                    "SALE",
+                    "CREDIT",
+                    "VOID",
+                    "FORCE_SALE",
+                    "AUTH",
+                    "CAPTURE",
+                    "ADJUSTMENT",
+                    "SIGNATURE"});
+                    entryModeCombo.Items.Clear();
+                    entryModeCombo.Items.AddRange(new object[]
+                    {
+                    "KEYED",
+                    "EMV",
+                    "HID",
+                    "SWIPED"
+                    });
+                    break;
+
+                case "ACH":
+                    tccComboBox.Visible = true;
+                    tccLabel.Visible = true;
+                    accountTypeCombo.Visible = false;
+                    accountTypeLabel.Visible = false;
+                    sigCapCheckBox.Visible = false;
+                    returnedSignatureLabel.Visible = false;
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[]
+                    {
+                    "DEBIT",
+                    "CREDIT"
+                    });
+                    entryModeCombo.Items.Clear();
+                    entryModeCombo.Items.AddRange(new object[]
+                    {
+                    "KEYED"
+                    });
+                    break;
+
+                case "INTERAC":
+                    accountTypeCombo.Visible = false;
+                    accountTypeLabel.Visible = false;
+                    sigCapCheckBox.Visible = false;
+                    tccComboBox.Visible = false;
+                    tccLabel.Visible = false;
+                    returnedSignatureLabel.Visible = false;
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[]
+                    {
+                    "PURCHASE",
+                    "REFUND"
+                    });
+                    entryModeCombo.Items.Clear();
+                    entryModeCombo.Items.AddRange(new object[]
+                    {
+                    "EMV",
+                    "HID"
+                    });
+                    break;
+
+                default:
+                    break;
+
+            }
+
+            /* Ugly IF  then statements
             if (transactionTypeCombo.Text == "DEBIT_CARD")
             {
                 accountTypeCombo.Visible = true;
@@ -68,8 +164,8 @@ namespace EHPAgain
             }
             if (transactionTypeCombo.Text == "INTERAC")
             {
-                accountTypeCombo.Visible = true;
-                accountTypeLabel.Visible = true;
+                accountTypeCombo.Visible = false;
+                accountTypeLabel.Visible = false;
                 sigCapCheckBox.Visible = false;
                 tccComboBox.Visible = false;
                 tccLabel.Visible = false;
@@ -133,13 +229,53 @@ namespace EHPAgain
                     "HID",
                     "SWIPED"
                 });
-            }
+            }*/
         }
        
         private void chargeTypeCombo_SelectedIndexChanged(object sender, EventArgs e) // Allow OrderID to be manually entered for Applicable Transactions, also Manage Independent vs Dependent credit box.
         {
-            
-            
+            switch (chargeTypeCombo.Text)
+            {
+                case "CREDIT":
+                    orderIDText.ReadOnly = false;
+                    switch (transactionTypeCombo.Text)
+                    {
+                        case "CREDIT_CARD":
+                            creditTypeLabel.Visible = true;
+                            creditTypeCombo.Visible = true;
+                            break;
+
+                        default:
+                            creditTypeCombo.Visible = false;
+                            creditTypeLabel.Visible = false;
+                            break;
+                    }
+                    break;
+                case "REFUND":
+                    orderIDText.ReadOnly = false;
+                    break;
+
+                case "FORCE_SALE":
+                    orderIDText.ReadOnly = false;
+                    // Need to Implement Approval Code NYI
+                    break;
+
+                case "VOID":
+                    orderIDText.ReadOnly = false;
+                    break;
+
+                case "CAPTURE":
+                    orderIDText.ReadOnly = false;
+                    //Need to implement approval code
+                    break;
+
+                default:
+                    orderIDText.ReadOnly = true;
+                    creditTypeLabel.Visible = false;
+                    creditTypeCombo.Visible = false;
+                    break;
+            }
+            /* Old IF then Statments
             if (chargeTypeCombo.Text == "CREDIT" || chargeTypeCombo.Text == "REFUND" || chargeTypeCombo.Text == "FORCE_SALE" || chargeTypeCombo.Text == "VOID" || chargeTypeCombo.Text =="CAPTURE")
             {
                 orderIDText.ReadOnly = false;
@@ -161,11 +297,214 @@ namespace EHPAgain
                 orderIDText.ReadOnly = true;
                 creditTypeLabel.Visible = false;
                 creditTypeCombo.Visible = false;
-            }
+            }*/
         }
         
         private void submitButton_Click(object sender, EventArgs e) //Submit button with Logic for sending correct transaction type. 
         {
+            string parameters;
+            string otk;
+            string content; 
+
+            switch (transactionTypeCombo.Text)
+            {
+                case "CREDIT_CARD":
+                    switch (chargeTypeCombo.Text)
+                    {
+                        case "SALE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk);
+                            content = hostPay.DocumentText.ToString();
+                            break;
+
+                        case "CREDIT":
+                            
+                            switch (creditTypeCombo.Text)
+                            {
+                                case "DEPENDENT":
+                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                                    postParametersText.Text = parameters;
+                                    writeToLog(parameters);
+
+                                    hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                                    break;
+
+                                case "INDEPENDENT":
+                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text); // Build Parameters for POST
+                                    postParametersText.Text = parameters;
+                                    writeToLog(parameters);
+
+                                    otk = PaymentEngine.webRequest_Post(parameters);
+
+                                    hostPay.Navigate(PaymentEngine.otkURL + otk);
+                                    break;
+                                default:
+                                    MessageBox.Show("An Error has occured, Invalid transaction parameters");
+                                    break;
+                            }
+                            break; //End Credit Case
+
+                        case "AUTH":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk);
+                            content = hostPay.DocumentText.ToString();
+                            break;
+
+                        case "VOID":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                            break;
+
+                        case "FORCE_SALE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                            break;
+
+                        case "CAPTURE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                            break;
+
+                        case "ADJUSTMENT":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                            break;
+
+                        case "SIGNATURE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk);
+                            content = hostPay.DocumentText.ToString();
+                            break;
+
+                        default:
+                            MessageBox.Show("An error has occured, Invalid transaction parameters");
+                            break;
+
+                    } // End Credit_CARD request
+                    break;
+
+                case "DEBIT_CARD":
+
+                    switch (transactionTypeCombo.Text)
+                    {
+                        case "REFUND":
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            content = hostPay.DocumentText.ToString();
+                            break;
+
+                        case "PURCHASE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            content = hostPay.DocumentText.ToString();
+                            break;
+
+                        default:
+                            MessageBox.Show("An error has occured, Invalid Transaction Parameters");
+                            break;
+
+                    } //End Debit Card Switch
+                    break;
+
+                case "ACH":
+                    switch (chargeTypeCombo.Text)
+                    {
+                        case "CREDIT":
+
+                            switch (creditTypeCombo.Text)
+                            {
+                                case "DEPENDENT":
+                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                                    postParametersText.Text = parameters;
+                                    writeToLog(parameters);
+
+                                    hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                                    break;
+
+                                case "INDEPENDENT":
+                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                                    postParametersText.Text = parameters;
+                                    writeToLog(parameters);
+
+                                    otk = PaymentEngine.webRequest_Post(parameters);
+
+                                    hostPay.Navigate(PaymentEngine.otkURL + otk);
+                                    break;
+                                default:
+                                    MessageBox.Show("An Error has occured, Invalid transaction parameters");
+                                    break;
+                            }
+                            break; //End Credit Case
+
+                        case "DEBIT":
+                            parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPay.Navigate(PaymentEngine.otkURL + otk);
+                            break;
+
+                        default:
+                            MessageBox.Show("An Error has occured, Invalid Transaction Parameters");
+                            break;
+
+                    } // End ACH
+                    break;
+
+                default:
+                    MessageBox.Show("An Error has occured, Invalid Transaction Parameters");
+                    break;
+
+            }
+
+            /* Super Ugly code that will make your brain hurt.
             if (transactionTypeCombo.Text == "CREDIT_CARD")
             {
                 hostPay.Navigate("about:blank");
@@ -192,7 +531,7 @@ namespace EHPAgain
                 
                
             }
-            if (transactionTypeCombo.Text == "DEBIT_CARD")
+            if (transactionTypeCombo.Text == "DEBIT_CARD" || transactionTypeCombo.Text =="INTERAC")
             {
                 hostPay.Navigate("about:blank");
                 if (chargeTypeCombo.Text != "REFUND")
@@ -233,7 +572,7 @@ namespace EHPAgain
                 {
                     hostPay.DocumentText = PaymentEngine.webRequest_Query(parameters);
                 }
-            }
+            }*/
         } 
         
         private void queryButton_Click(object sender, EventArgs e) //Button for Performing QUERY.
@@ -312,26 +651,27 @@ namespace EHPAgain
         
         private void tccComboBox_SelectedIndexChanged(object sender, EventArgs e) //Set Transaction Condition Code based on SEC type selected in transaction Condition Code Box.
         {
-            
-            if (tccComboBox.Text == "PPD")
+            switch (tccComboBox.Text)
             {
-                TCC = "50";
-            }
-            if (tccComboBox.Text == "TEL")
-            {
-                TCC = "51";
-            }
-            if (tccComboBox.Text == "WEB")
-            {
-                TCC = "52";
-            }
-            if (tccComboBox.Text == "CCD")
-            {
-                TCC = "53";
-            }
-            if (tccComboBox.Text == "")
-            {
-                TCC = null;
+                case "PPD":
+                    TCC = "50";
+                    break;
+
+                case "TEL":
+                    TCC = "51";
+                    break;
+
+                case "WEB":
+                    TCC = "52";
+                    break;
+
+                case "CCD":
+                    TCC = "53";
+                    break;
+
+                default:
+                    TCC = null;
+                    break;
             }
         } 
 
@@ -446,6 +786,11 @@ namespace EHPAgain
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void accountTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

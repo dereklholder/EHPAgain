@@ -21,6 +21,7 @@ namespace EHPAgain
         {
             public string sealedSetupParameters { get; set; }
             public string actionURL { get; set; }
+            public string errorMessage { get; set; }
         }
 
         //Variables for various URLs used by  Edge, EdgeURL getting the otk, OtK url appended with SSP for pulling up payment page, query URL for Query and Dependent return transactions
@@ -76,6 +77,12 @@ namespace EHPAgain
                 json = JsonConvert.DeserializeObject<JsonResponse>(responseFromServer); //Deserialize JSON response from Server. Utilizing JSON.NET library.
 
                 string ssp = json.sealedSetupParameters; //Pull sealedSetupParameters from JSON response
+
+                if (json.errorMessage == "Account Status is not set")
+                {
+                    MessageBox.Show("Account Status is not set, please ensure credentials are set up with proper account types (Interac/ACH)");
+                }
+
                 return ssp;
             }
             catch (Exception ex)

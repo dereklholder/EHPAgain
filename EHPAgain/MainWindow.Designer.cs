@@ -276,6 +276,7 @@
             this.accountTypeCombo.Size = new System.Drawing.Size(161, 21);
             this.accountTypeCombo.TabIndex = 24;
             this.accountTypeCombo.Visible = false;
+            this.accountTypeCombo.SelectedIndexChanged += new System.EventHandler(this.accountTypeCombo_SelectedIndexChanged);
             // 
             // accountTypeLabel
             // 
