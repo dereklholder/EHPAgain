@@ -1,1 +1,22 @@
-C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\EHPAgain.exe.config
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\OpenEdge HostPay Demo.exe.config
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\Logging\db.dat
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\OpenEdge HostPay Demo.exe.manifest
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\OpenEdge HostPay Demo.application
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\OpenEdge HostPay Demo.exe
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\OpenEdge HostPay Demo.pdb
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\HtmlAgilityPack.dll
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\Newtonsoft.Json.dll
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\HtmlAgilityPack.pdb
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\HtmlAgilityPack.xml
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Release\Newtonsoft.Json.xml
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdgeHostPayDemo.MPDTransactions.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\EHPAgain.QueryPost.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\EHPAgain.Help.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\EHPAgain.MainWindow.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdgeHostPayDemo.Properties.Resources.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\EHPAgain.Receipt.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OEHP Demo.csproj.GenerateResource.Cache
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdge HostPay Demo.exe.manifest
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdge HostPay Demo.application
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdge HostPay Demo.exe
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Release\OpenEdge HostPay Demo.pdb

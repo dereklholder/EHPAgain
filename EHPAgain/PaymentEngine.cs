@@ -210,7 +210,7 @@ namespace EHPAgain
             string chargeAmountBuilder = "charge_total=" + chargeAmount;
             string orderIDBuilder = "order_id=" + orderID;
             string accountTokenBuilder = "account_token=" + accountToken;
-            string approvalCodeBuilder = "bank_approval_code" + approvalCode;
+            string approvalCodeBuilder = "bank_approval_code=" + approvalCode;
 
 
 
@@ -220,6 +220,7 @@ namespace EHPAgain
                                 + "&" + chargeTypeBuilder
                                 + "&" + chargeAmountBuilder
                                 + "&" + orderIDBuilder
+                                + "&" + approvalCodeBuilder
                                 + "&" + "duplicate_check=NO_CHECK"
                                 + customParameters
                 ;
@@ -332,6 +333,7 @@ namespace EHPAgain
                                 //+ "&" + expYYBuilder
                                 + "&" + amountBuilder
                                 + "&" + "managed_payer_data=true"
+                                + "&" + "duplicate_check=NO_CHECK"
                 ;
             return parameters;
         }

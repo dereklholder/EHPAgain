@@ -98,7 +98,23 @@ namespace OpenEdgeHostPayDemo
 
         private void MPDTransactions_Load(object sender, EventArgs e)
         {
+            dbViewer.View = View.Details;
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
+            var data = File.ReadAllLines(dbPath);
+            foreach (string line in data)
+            {
+                var parts = line.Split(',');
+                ListViewItem lvi = new ListViewItem(parts[0]);
+                lvi.SubItems.Add(parts[1]);
+                lvi.SubItems.Add(parts[2]);
+                lvi.SubItems.Add(parts[3]);
+                lvi.SubItems.Add(parts[4]);
+                lvi.SubItems.Add(parts[5]);
+                dbViewer.Items.Add(lvi);
 
+            }
+            dbViewer.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            dbViewer.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private void submitButton_Click(object sender, EventArgs e) // Perform MPD Transaction using Supplied parameters
@@ -125,6 +141,11 @@ namespace OpenEdgeHostPayDemo
             var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "Log.txt")).ToString();
             string timeStamp = DateTime.Now.ToString();
             File.AppendAllText(logPath, timeStamp + Environment.NewLine + logString + Environment.NewLine + "--------------------------------------------------" + Environment.NewLine);
+        }
+
+        private void dbViewer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,6 +30,7 @@ namespace EHPAgain
         
         public string TCC = null; //Transaction Condition Code vaiable, used for Check Transactions. 
    
+        /* Deprecated SQL Attempt. May revisit.
         public static string LocalPath = AppDomain.CurrentDomain.BaseDirectory.ToString();
         public static string ConnString = String.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;
                                                     AttachDBFilename={0}MPDVault.MDF;
@@ -37,6 +38,7 @@ namespace EHPAgain
                                                     Connect Timeout=30;
                                                     User Instance=false", LocalPath);
         public static string newConnString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MPDVault.mdf;Integrated Security = True;";
+        */
         private void Form1_Load(object sender, EventArgs e)
         {
          
@@ -199,7 +201,6 @@ namespace EHPAgain
                     orderIDText.ReadOnly = false;
                     approvalCodeLabel.Visible = false;
                     approvalCodeBox.Visible = false;
-                    //Need to implement approval code
                     break;
 
                 default:
@@ -285,7 +286,7 @@ namespace EHPAgain
 
                         case "FORCE_SALE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilderAppCode(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, approvalCodeBox.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -331,7 +332,7 @@ namespace EHPAgain
 
                 case "DEBIT_CARD":
 
-                    switch (transactionTypeCombo.Text)
+                    switch (chargeTypeCombo.Text)
                     {
                         case "REFUND":
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
@@ -574,7 +575,12 @@ namespace EHPAgain
                 string span = keyPairs.Get("span");
                 string label = DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
                 string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
+                string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label;
+                var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
+                File.AppendAllText(dbPath, Environment.NewLine + dbString);
                 writeToLog(forTheLogging);
+
+                /* Sql is dumb, may revisit.
                 using (SqlConnection conn = new SqlConnection(newConnString))
                 {
                     SqlCommand addToken = new SqlCommand(@"INSERT INTO dbo.tokenVault (Id, Payer_Identifier, SPAN, EXP_MM, EXP_YY, Label) 
@@ -589,7 +595,7 @@ namespace EHPAgain
                     addToken.ExecuteNonQuery();
                     conn.Close();
                     
-                }
+                }*/
                 
             }
             catch (SqlException ex)

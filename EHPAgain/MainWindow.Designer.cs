@@ -499,7 +499,6 @@
             this.Name = "MainWindow";
             this.Text = "OpenEdge HostPay Demo";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

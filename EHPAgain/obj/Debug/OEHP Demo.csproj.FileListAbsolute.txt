@@ -20,3 +20,4 @@ C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Deb
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdgeHostPayDemo.Properties.Resources.resources
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OEHP Demo.csprojResolveAssemblyReference.cache
 C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\obj\Debug\OpenEdgeHostPayDemo.MPDTransactions.resources
+C:\Users\holderd\Documents\Visual Studio 2013\Projects\EHPAgain\EHPAgain\bin\Debug\Logging\db.dat

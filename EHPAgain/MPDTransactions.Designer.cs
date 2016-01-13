@@ -54,6 +54,13 @@
             this.expYYLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.orderIDText = new System.Windows.Forms.TextBox();
+            this.dbViewer = new System.Windows.Forms.ListView();
+            this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.payer_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.exp_mm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.exp_yy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.span = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.timeCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // exitButton
@@ -322,11 +329,58 @@
             this.orderIDText.Size = new System.Drawing.Size(300, 20);
             this.orderIDText.TabIndex = 26;
             // 
+            // dbViewer
+            // 
+            this.dbViewer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.id,
+            this.payer_id,
+            this.exp_mm,
+            this.exp_yy,
+            this.span,
+            this.timeCreated});
+            this.dbViewer.Location = new System.Drawing.Point(359, 168);
+            this.dbViewer.Name = "dbViewer";
+            this.dbViewer.Size = new System.Drawing.Size(496, 169);
+            this.dbViewer.TabIndex = 28;
+            this.dbViewer.UseCompatibleStateImageBehavior = false;
+            this.dbViewer.SelectedIndexChanged += new System.EventHandler(this.dbViewer_SelectedIndexChanged);
+            // 
+            // id
+            // 
+            this.id.Text = "ID";
+            this.id.Width = -1;
+            // 
+            // payer_id
+            // 
+            this.payer_id.Text = "Payer Identifier";
+            this.payer_id.Width = -1;
+            // 
+            // exp_mm
+            // 
+            this.exp_mm.Text = "Exp Month";
+            this.exp_mm.Width = -2;
+            // 
+            // exp_yy
+            // 
+            this.exp_yy.Text = "Exp Year";
+            this.exp_yy.Width = -2;
+            // 
+            // span
+            // 
+            this.span.Text = "SPAN";
+            this.span.Width = -2;
+            // 
+            // timeCreated
+            // 
+            this.timeCreated.Text = "Time Created";
+            this.timeCreated.Width = -1;
+            // 
             // MPDTransactions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 583);
+            this.Controls.Add(this.dbViewer);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.orderIDText);
             this.Controls.Add(this.expYYLabel);
@@ -389,5 +443,12 @@
         private System.Windows.Forms.Label expYYLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox orderIDText;
+        private System.Windows.Forms.ListView dbViewer;
+        private System.Windows.Forms.ColumnHeader id;
+        private System.Windows.Forms.ColumnHeader payer_id;
+        private System.Windows.Forms.ColumnHeader exp_mm;
+        private System.Windows.Forms.ColumnHeader exp_yy;
+        private System.Windows.Forms.ColumnHeader span;
+        private System.Windows.Forms.ColumnHeader timeCreated;
     }
 }
