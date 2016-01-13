@@ -16,7 +16,13 @@ namespace OpenEdgeHostPayDemo
         public MPDTransactions()
         {
             InitializeComponent();
+            dbViewer.Controls.Add(txt);
+            dbViewer.FullRowSelect = true;
+            txt.Leave += (o, e) => txt.Visible = false;
+
         }
+        private readonly TextBox txt = new TextBox { BorderStyle = BorderStyle.FixedSingle, Visible = false };
+
         public static string TCC = null;
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -32,25 +38,25 @@ namespace OpenEdgeHostPayDemo
 
         private void transactionTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (transactionTypeCombo.Text == "ACH")
+            switch (transactionTypeCombo.Text)
             {
-                tccComboBox.Visible = true;
-                tccLabel.Visible = true;
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[]
-                {
+                case "ACH":
+                    tccComboBox.Visible = true;
+                    tccLabel.Visible = true;
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[]
+                    {
                     "DEBIT",
                     "CREDIT"
-                });
-            }
-            if (transactionTypeCombo.Text == "CREDIT_CARD")
-            {
+                    });
+                    break;
 
-                tccComboBox.Visible = false;
-                tccLabel.Visible = false;
+                case "CREDIT_CARD":
+                    tccComboBox.Visible = false;
+                    tccLabel.Visible = false;
 
-                chargeTypeCombo.Items.Clear();
-                chargeTypeCombo.Items.AddRange(new object[] {
+                    chargeTypeCombo.Items.Clear();
+                    chargeTypeCombo.Items.AddRange(new object[] {
                     "SALE",
                     "CREDIT",
                     "VOID",
@@ -59,7 +65,11 @@ namespace OpenEdgeHostPayDemo
                     "CAPTURE",
                     "ADJUSTMENT",
                     "DELETE_CUSTOMER"});
-            }
+                    break;
+
+                default:
+                    break;
+            }      
         }
 
         private void chargeTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,25 +79,20 @@ namespace OpenEdgeHostPayDemo
 
         private void tccComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tccComboBox.Text == "PPD")
+            switch (tccComboBox.Text)
             {
-                TCC = "50";
-            }
-            if (tccComboBox.Text == "TEL")
-            {
-                TCC = "51";
-            }
-            if (tccComboBox.Text == "WEB")
-            {
-                TCC = "52";
-            }
-            if (tccComboBox.Text == "CCD")
-            {
-                TCC = "53";
-            }
-            if (tccComboBox.Text == "")
-            {
-                TCC = null;
+                case "PPD":
+                    TCC = "50";
+                    break;
+                case "TEL":
+                    TCC = "51";
+                    break;
+                case "WEB":
+                    TCC = "52";
+                    break;
+                case "CCD":
+                    TCC = "53";
+                    break;
             }
         }
 
@@ -110,6 +115,7 @@ namespace OpenEdgeHostPayDemo
                 lvi.SubItems.Add(parts[3]);
                 lvi.SubItems.Add(parts[4]);
                 lvi.SubItems.Add(parts[5]);
+                lvi.SubItems.Add(parts[6]);
                 dbViewer.Items.Add(lvi);
 
             }
@@ -146,6 +152,21 @@ namespace OpenEdgeHostPayDemo
         private void dbViewer_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dbViewer_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ListViewHitTestInfo hit = dbViewer.HitTest(e.Location);
+
+            Rectangle rowBounds = hit.SubItem.Bounds;
+            Rectangle labelBounds = hit.Item.GetBounds(ItemBoundsPortion.Label);
+
+            int leftMargin = labelBounds.Left - 1;
+            txt.Bounds = new Rectangle(rowBounds.Left + leftMargin, rowBounds.Top, rowBounds.Width - leftMargin - 1, rowBounds.Height);
+            txt.Text = hit.SubItem.Text;
+            txt.SelectAll();
+            txt.Visible = true;
+            txt.Focus();
         }
     }
 }

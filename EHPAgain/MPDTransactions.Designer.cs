@@ -61,6 +61,7 @@
             this.exp_yy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.span = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.transactionType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // exitButton
@@ -337,13 +338,15 @@
             this.exp_mm,
             this.exp_yy,
             this.span,
-            this.timeCreated});
+            this.timeCreated,
+            this.transactionType});
             this.dbViewer.Location = new System.Drawing.Point(359, 168);
             this.dbViewer.Name = "dbViewer";
             this.dbViewer.Size = new System.Drawing.Size(496, 169);
             this.dbViewer.TabIndex = 28;
             this.dbViewer.UseCompatibleStateImageBehavior = false;
             this.dbViewer.SelectedIndexChanged += new System.EventHandler(this.dbViewer_SelectedIndexChanged);
+            this.dbViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dbViewer_MouseDoubleClick);
             // 
             // id
             // 
@@ -374,6 +377,10 @@
             // 
             this.timeCreated.Text = "Time Created";
             this.timeCreated.Width = -1;
+            // 
+            // transactionType
+            // 
+            this.transactionType.Text = "TransactionType";
             // 
             // MPDTransactions
             // 
@@ -450,5 +457,6 @@
         private System.Windows.Forms.ColumnHeader exp_yy;
         private System.Windows.Forms.ColumnHeader span;
         private System.Windows.Forms.ColumnHeader timeCreated;
+        private System.Windows.Forms.ColumnHeader transactionType;
     }
 }

@@ -395,6 +395,7 @@ namespace EHPAgain
                             break; //End Credit Case
 
                         case "DEBIT":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
@@ -573,11 +574,12 @@ namespace EHPAgain
                 string exp_mm = keyPairs.Get("expire_month");
                 string exp_yy = keyPairs.Get("expire_year");
                 string span = keyPairs.Get("span");
+                string tranType = transactionTypeCombo.Text;
                 string label = DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
                 string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
-                string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label;
+                string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType;
                 var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
-                File.AppendAllText(dbPath, Environment.NewLine + dbString);
+                File.AppendAllText(dbPath, dbString + Environment.NewLine);
                 writeToLog(forTheLogging);
 
                 /* Sql is dumb, may revisit.
