@@ -562,8 +562,10 @@ namespace EHPAgain
 
         private void queryPaymentBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) //Event Used to send Query data to log.
         {
-            string s = queryPaymentBrowser.DocumentText;
-            writeToLog(s);
+            StringBuilder s = new StringBuilder();
+            s.Append(queryPaymentBrowser.DocumentText);
+
+            writeToLog(s.ToString());
             // Grab Information for MPD Transactions, if it exists. WIP
             NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryPaymentBrowser.DocumentText.ToString());
             
@@ -576,11 +578,15 @@ namespace EHPAgain
                 string span = keyPairs.Get("span");
                 string tranType = transactionTypeCombo.Text;
                 string label = DateTime.Now.ToShortDateString() + DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
-                string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
-                string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType;
+                StringBuilder forTheLogging = new StringBuilder();
+                forTheLogging.Append("Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label);
+                //string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
+                StringBuilder dbString = new StringBuilder();
+                dbString.Append(id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType);
+                //string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType;
                 var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
-                File.AppendAllText(dbPath, dbString + Environment.NewLine);
-                writeToLog(forTheLogging);
+                File.AppendAllText(dbPath, dbString.ToString() + Environment.NewLine);
+                writeToLog(forTheLogging.ToString());
 
                 /* Sql is dumb, may revisit.
                 using (SqlConnection conn = new SqlConnection(newConnString))

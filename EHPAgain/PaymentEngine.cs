@@ -12,7 +12,10 @@ using System.Configuration;
 using System.Reflection.Emit;
 using System.Web;
 using Newtonsoft.Json; // Utilizes JSON.NET for parsing response from the gateway.
-
+/// <summary>
+/// General Methods for generating Parameters and sending POSTs to the gateway.
+/// Old code Commented and left for reference.
+/// </summary>
 namespace EHPAgain
 {
     class PaymentEngine  //General Class that Handles the Payment Functions, as well as building the strings used for various transaction Posts
@@ -158,19 +161,19 @@ namespace EHPAgain
             string accountTokenBuilder = "account_token=" + accountToken;
             string tccBuilder = "transaction_condition_code=" + tcc;
 
+            StringBuilder sb = new StringBuilder();
+            sb.Append(  accountTokenBuilder
+                        + "&" + transactionTypeBuilder
+                        + "&" + entryModeBuilder
+                        + "&" + chargeTypeBuilder
+                        + "&" + chargeAmountBuilder
+                        + "&" + orderIDBuilder
+                        + "&" + "duplicate_check=NO_CHECK"
+                        + "&" + tccBuilder
+                        + customParameters)
+                        ;
 
-
-            string parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + entryModeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + chargeAmountBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + "duplicate_check=NO_CHECK"
-                                + "&" + tccBuilder
-                                + customParameters
-                ;
-            return parameters;
+            return sb.ToString();
 
         }
 
@@ -184,10 +187,18 @@ namespace EHPAgain
             string chargeAmountBuilder = "charge_total=" + chargeAmount;
             string orderIDBuilder = "order_id=" + orderID;
             string accountTokenBuilder = "account_token=" + accountToken;
-            
-            
 
-            string parameters = accountTokenBuilder
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append(accountTokenBuilder
+                        + "&" + transactionTypeBuilder
+                        + "&" + entryModeBuilder
+                        + "&" + chargeTypeBuilder
+                        + "&" + chargeAmountBuilder
+                        + "&" + orderIDBuilder
+                        + "&" + "duplicate_check=NO_CHECK"
+                        + customParameters);
+
+            /*string parameters = accountTokenBuilder
                                 + "&" + transactionTypeBuilder
                                 + "&" + entryModeBuilder
                                 + "&" + chargeTypeBuilder
@@ -195,8 +206,8 @@ namespace EHPAgain
                                 + "&" + orderIDBuilder
                                 + "&" + "duplicate_check=NO_CHECK"
                                 + customParameters
-                ;
-            return parameters;
+                ;*/
+            return parameters.ToString();
 
         }
 
@@ -212,19 +223,31 @@ namespace EHPAgain
             string accountTokenBuilder = "account_token=" + accountToken;
             string approvalCodeBuilder = "bank_approval_code=" + approvalCode;
 
-
-
-            string parameters = accountTokenBuilder
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append(  accountTokenBuilder
                                 + "&" + transactionTypeBuilder
                                 + "&" + entryModeBuilder
                                 + "&" + chargeTypeBuilder
                                 + "&" + chargeAmountBuilder
                                 + "&" + orderIDBuilder
                                 + "&" + approvalCodeBuilder
+                                + "&" + approvalCodeBuilder
                                 + "&" + "duplicate_check=NO_CHECK"
-                                + customParameters
+                                + customParameters)
+                                ;
+
+            /*string parameters = accountTokenBuilder
+                                + "&" + transactionTypeBuilder
+                                + "&" + entryModeBuilder
+                                + "&" + chargeTypeBuilder
+                                + "&" + chargeAmountBuilder
+                                + "&" + orderIDBuilder
+                                + "&" + approvalCodeBuilder
+                                + "&" + approvalCodeBuilder
+                                + "&" + "duplicate_check=NO_CHECK"
+                                + customParameters*/
                 ;
-            return parameters;
+            return parameters.ToString();
 
         }
 
@@ -241,11 +264,29 @@ namespace EHPAgain
             string accountTypeStatus = accountType;
             string customParamBuilder = customParameters;
             string accountTypeBuilder = null;
-            string parameters = null;
+            //string parameters = null;
+            StringBuilder parameters = new StringBuilder();
             bool usesAccountType = false;
 
-            
-            if (accountTypeStatus == "DEFAULT")
+            switch (accountTypeStatus)
+            {
+                case "DEFAULT":
+                    accountTypeBuilder = "account_type=2";
+                    usesAccountType = false;
+                    break;
+                case "CASH_BENEFIT":
+                    accountTypeBuilder = "account_type=3";
+                    usesAccountType = true;
+                    break;
+                case "FOOD_STAMP":
+                    accountTypeBuilder = "account_type=4";
+                    usesAccountType = true;
+                    break;
+                default:
+                    break;
+            }
+
+            /*if (accountTypeStatus == "DEFAULT")
             {
                 accountTypeBuilder = "account_type=2";
                 usesAccountType = false;
@@ -259,36 +300,36 @@ namespace EHPAgain
             {
                 accountTypeBuilder = "account_type=4";
                 usesAccountType = true;
-            }
+            }*/
             
 
             if (usesAccountType == false)
             {
-                parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + entryModeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + chargeAmountBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + "duplicate_check=NO_CHECK"
-                                + customParamBuilder
+                parameters.Append(  accountTokenBuilder
+                                    + "&" + transactionTypeBuilder
+                                    + "&" + entryModeBuilder
+                                    + "&" + chargeTypeBuilder
+                                    + "&" + chargeAmountBuilder
+                                    + "&" + orderIDBuilder
+                                    + "&" + "duplicate_check=NO_CHECK"
+                                    + customParamBuilder)
                 ;
             }
             if (usesAccountType == true)
             {
-                parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + entryModeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + chargeAmountBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + "duplicate_check=NO_CHECK"
-                                + "&" + accountTypeBuilder
-                                + customParamBuilder
+                parameters.Append(  accountTokenBuilder
+                                    + "&" + transactionTypeBuilder
+                                    + "&" + entryModeBuilder
+                                    + "&" + chargeTypeBuilder
+                                    + "&" + chargeAmountBuilder
+                                    + "&" + orderIDBuilder
+                                    + "&" + "duplicate_check=NO_CHECK"
+                                    + "&" + accountTypeBuilder
+                                    + customParamBuilder)
                 ;
             }
 
-            return parameters;
+            return parameters.ToString();
 
         }
 
@@ -300,13 +341,20 @@ namespace EHPAgain
             string chargeTypeBuilder = "charge_type=" + chargeType;
             string orderIDBuilder = "order_id=" + orderID;
 
-            string parameters = accountTokenBuilder
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append(  accountTokenBuilder
+                                + "&" + transactionTypeBuilder
+                                + "&" + chargeTypeBuilder
+                                + "&" + orderIDBuilder
+                                + "&" + "full_detail_flag=true");
+
+            /*string parameters = accountTokenBuilder
                                 + "&" + transactionTypeBuilder
                                 + "&" + chargeTypeBuilder
                                 + "&" + orderIDBuilder
                                 + "&" + "full_detail_flag=true"
-                ;
-            return parameters;
+                ;*/
+            return parameters.ToString();
 
         }
 
@@ -322,8 +370,20 @@ namespace EHPAgain
             //string expYYBuilder = "expire_year=" + expYY; Update Customer not yet implemented into API, 
             //string expMMBuilder = "expire_month=" + expMM;
             string amountBuilder = "charge_total=" + chargeAmount;
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append(  accountTokenBuilder
+                                + "&" + transactionTypeBuilder
+                                + "&" + chargeTypeBuilder
+                                + "&" + orderIDBuilder
+                                + "&" + payerIDBuilder
+                                + "&" + spanBuilder
+                                //+ "&" + expMMBuilder
+                                //+ "&" + expYYBuilder
+                                + "&" + amountBuilder
+                                + "&" + "managed_payer_data=true"
+                                + "&" + "duplicate_check=NO_CHECK");
 
-            string parameters = accountTokenBuilder
+            /*string parameters = accountTokenBuilder
                                 + "&" + transactionTypeBuilder
                                 + "&" + chargeTypeBuilder
                                 + "&" + orderIDBuilder
@@ -334,8 +394,8 @@ namespace EHPAgain
                                 + "&" + amountBuilder
                                 + "&" + "managed_payer_data=true"
                                 + "&" + "duplicate_check=NO_CHECK"
-                ;
-            return parameters;
+                ;*/
+            return parameters.ToString();
         }
 
         public static string orderIDRandom(int size) //Code for creating Randomized OrderIDs
