@@ -28,7 +28,7 @@ namespace EHPAgain
             InitializeComponent();
         }
         
-        public string TCC = null; //Transaction Condition Code vaiable, used for Check Transactions. 
+        public string TCC = null; //Transaction Condition Code variable, used for Check Transactions. 
    
         /* Deprecated SQL Attempt. May revisit.
         public static string LocalPath = AppDomain.CurrentDomain.BaseDirectory.ToString();
@@ -575,7 +575,7 @@ namespace EHPAgain
                 string exp_yy = keyPairs.Get("expire_year");
                 string span = keyPairs.Get("span");
                 string tranType = transactionTypeCombo.Text;
-                string label = DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
+                string label = DateTime.Now.ToShortDateString() + DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
                 string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
                 string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType;
                 var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
@@ -596,14 +596,14 @@ namespace EHPAgain
                     conn.Open();
                     addToken.ExecuteNonQuery();
                     conn.Close();
-                    
+                   
                 }*/
                 
             }
             catch (SqlException ex)
             {
                 writeToLog(ex.ToString());
-                //MessageBox.Show("An Error Has Occured when Communicating to the Database, Please Check the Log");
+                MessageBox.Show("An Error Has Occured when Communicating to the Database, Please Check the Log");
                 
             }
             catch (Exception ex)
@@ -642,6 +642,21 @@ namespace EHPAgain
         private void approvalCodeLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void amountText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
         }
     }
 }

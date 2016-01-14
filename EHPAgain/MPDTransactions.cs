@@ -21,7 +21,7 @@ namespace OpenEdgeHostPayDemo
             txt.Leave += (o, e) => txt.Visible = false;
 
         }
-        private readonly TextBox txt = new TextBox { BorderStyle = BorderStyle.FixedSingle, Visible = false };
+        private readonly TextBox txt = new TextBox { BorderStyle = BorderStyle.FixedSingle, Visible = false, ReadOnly = true };
 
         public static string TCC = null;
 
@@ -167,6 +167,26 @@ namespace OpenEdgeHostPayDemo
             txt.SelectAll();
             txt.Visible = true;
             txt.Focus();
+        }
+
+        private void amountBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        private void dbViewerLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

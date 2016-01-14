@@ -214,8 +214,10 @@
             // 
             this.amountText.Location = new System.Drawing.Point(436, 65);
             this.amountText.Name = "amountText";
+            this.amountText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.amountText.Size = new System.Drawing.Size(161, 20);
             this.amountText.TabIndex = 16;
+            this.amountText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.amountText_KeyPress);
             // 
             // label8
             // 
@@ -228,7 +230,7 @@
             // 
             // queryPaymentBrowser
             // 
-            this.queryPaymentBrowser.Location = new System.Drawing.Point(913, 241);
+            this.queryPaymentBrowser.Location = new System.Drawing.Point(913, 231);
             this.queryPaymentBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.queryPaymentBrowser.Name = "queryPaymentBrowser";
             this.queryPaymentBrowser.Size = new System.Drawing.Size(323, 417);

@@ -62,6 +62,7 @@
             this.span = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeCreated = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.transactionType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dbViewerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // exitButton
@@ -146,6 +147,7 @@
             this.amountBox.Name = "amountBox";
             this.amountBox.Size = new System.Drawing.Size(119, 20);
             this.amountBox.TabIndex = 7;
+            this.amountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.amountBox_KeyPress);
             // 
             // amountLabel
             // 
@@ -168,17 +170,17 @@
             // 
             // hostPayWB
             // 
-            this.hostPayWB.Location = new System.Drawing.Point(15, 343);
+            this.hostPayWB.Location = new System.Drawing.Point(15, 197);
             this.hostPayWB.MinimumSize = new System.Drawing.Size(20, 20);
             this.hostPayWB.Name = "hostPayWB";
-            this.hostPayWB.Size = new System.Drawing.Size(614, 228);
+            this.hostPayWB.Size = new System.Drawing.Size(614, 374);
             this.hostPayWB.TabIndex = 10;
             // 
             // postParametersText
             // 
-            this.postParametersText.Location = new System.Drawing.Point(861, 28);
+            this.postParametersText.Location = new System.Drawing.Point(635, 28);
             this.postParametersText.Name = "postParametersText";
-            this.postParametersText.Size = new System.Drawing.Size(324, 153);
+            this.postParametersText.Size = new System.Drawing.Size(550, 153);
             this.postParametersText.TabIndex = 14;
             this.postParametersText.Text = "";
             // 
@@ -324,10 +326,10 @@
             // 
             // orderIDText
             // 
-            this.orderIDText.Location = new System.Drawing.Point(507, 61);
+            this.orderIDText.Location = new System.Drawing.Point(439, 60);
             this.orderIDText.Name = "orderIDText";
             this.orderIDText.ReadOnly = true;
-            this.orderIDText.Size = new System.Drawing.Size(300, 20);
+            this.orderIDText.Size = new System.Drawing.Size(190, 20);
             this.orderIDText.TabIndex = 26;
             // 
             // dbViewer
@@ -340,9 +342,9 @@
             this.span,
             this.timeCreated,
             this.transactionType});
-            this.dbViewer.Location = new System.Drawing.Point(359, 168);
+            this.dbViewer.Location = new System.Drawing.Point(635, 200);
             this.dbViewer.Name = "dbViewer";
-            this.dbViewer.Size = new System.Drawing.Size(496, 169);
+            this.dbViewer.Size = new System.Drawing.Size(550, 378);
             this.dbViewer.TabIndex = 28;
             this.dbViewer.UseCompatibleStateImageBehavior = false;
             this.dbViewer.SelectedIndexChanged += new System.EventHandler(this.dbViewer_SelectedIndexChanged);
@@ -382,11 +384,22 @@
             // 
             this.transactionType.Text = "TransactionType";
             // 
+            // dbViewerLabel
+            // 
+            this.dbViewerLabel.AutoSize = true;
+            this.dbViewerLabel.Location = new System.Drawing.Point(632, 184);
+            this.dbViewerLabel.Name = "dbViewerLabel";
+            this.dbViewerLabel.Size = new System.Drawing.Size(98, 13);
+            this.dbViewerLabel.TabIndex = 29;
+            this.dbViewerLabel.Text = "Transaction History";
+            this.dbViewerLabel.Click += new System.EventHandler(this.dbViewerLabel_Click);
+            // 
             // MPDTransactions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 583);
+            this.Controls.Add(this.dbViewerLabel);
             this.Controls.Add(this.dbViewer);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.orderIDText);
@@ -458,5 +471,6 @@
         private System.Windows.Forms.ColumnHeader span;
         private System.Windows.Forms.ColumnHeader timeCreated;
         private System.Windows.Forms.ColumnHeader transactionType;
+        private System.Windows.Forms.Label dbViewerLabel;
     }
 }
