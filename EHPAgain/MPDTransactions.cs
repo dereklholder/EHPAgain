@@ -128,7 +128,8 @@ namespace OpenEdgeHostPayDemo
             try
             {
                 orderIDText.Text = EHPAgain.PaymentEngine.orderIDRandom(8);
-                string parameters = EHPAgain.PaymentEngine.mpdBuilder(accountTokenText.Text, orderIDText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, amountBox.Text, payerIdentifierBox.Text, spanTextBox.Text, expYYCombo.Text, expMMCombo.Text);
+                string parameters = EHPAgain.PaymentEngine.mpdBuilder(accountTokenText.Text, orderIDText.Text, transactionTypeCombo.Text, 
+                    chargeTypeCombo.Text, amountBox.Text, payerIdentifierBox.Text, spanTextBox.Text, expYYCombo.Text, expMMCombo.Text);
                 postParametersText.Text = parameters;
                 writeToLog(parameters);
 

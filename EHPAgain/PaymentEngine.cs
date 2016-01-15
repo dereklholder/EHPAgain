@@ -150,7 +150,8 @@ namespace EHPAgain
         }
 
         //ACH ParamBuilder
-        public static string ACHParamBuilder(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string tcc, string customParameters) // Builds Parameters for WebPost
+        public static string ACHParamBuilder(string accountToken, string transactionType, string chargeType, 
+            string entryMode, string orderID, string chargeAmount, string tcc, string customParameters) // Builds Parameters for WebPost
         {
 
             string entryModeBuilder = "entry_mode=" + entryMode;
@@ -161,8 +162,8 @@ namespace EHPAgain
             string accountTokenBuilder = "account_token=" + accountToken;
             string tccBuilder = "transaction_condition_code=" + tcc;
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(  accountTokenBuilder
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append(  accountTokenBuilder
                         + "&" + transactionTypeBuilder
                         + "&" + entryModeBuilder
                         + "&" + chargeTypeBuilder
@@ -173,12 +174,13 @@ namespace EHPAgain
                         + customParameters)
                         ;
 
-            return sb.ToString();
+            return parameters.ToString();
 
         }
 
         //Credit ParamBuilder
-        public static string ParamBuilder(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string customParameters) // Builds Parameters for WebPost
+        public static string ParamBuilder(string accountToken, string transactionType, string chargeType, 
+            string entryMode, string orderID, string chargeAmount, string customParameters) // Builds Parameters for WebPost
         {
             
             string entryModeBuilder = "entry_mode=" + entryMode;
@@ -212,7 +214,8 @@ namespace EHPAgain
         }
 
         //Credit ParamBuilder
-        public static string ParamBuilderAppCode(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string approvalCode, string customParameters) // Builds Parameters for WebPost
+        public static string ParamBuilderAppCode(string accountToken, string transactionType, string chargeType, 
+            string entryMode, string orderID, string chargeAmount, string approvalCode, string customParameters) // Builds Parameters for WebPost
         {
 
             string entryModeBuilder = "entry_mode=" + entryMode;
@@ -252,7 +255,8 @@ namespace EHPAgain
         }
 
         //Debit Param Builder Overload
-        public static string ParamBuilder(string accountToken, string transactionType, string chargeType, string entryMode, string orderID, string chargeAmount, string accountType, string customParameters) // Builds Parameters for WebPost
+        public static string ParamBuilder(string accountToken, string transactionType, string chargeType, 
+            string entryMode, string orderID, string chargeAmount, string accountType, string customParameters) // Builds Parameters for WebPost
         {
 
             string entryModeBuilder = "entry_mode=" + entryMode;
@@ -359,7 +363,8 @@ namespace EHPAgain
         }
 
         //MPD ParamBuilder
-        public static string mpdBuilder(string accountToken, string orderID, string transactionType, string chargeType, string chargeAmount, string payer_id, string span, string expYY, string expMM)
+        public static string mpdBuilder(string accountToken, string orderID, string transactionType, string chargeType, 
+            string chargeAmount, string payer_id, string span, string expYY, string expMM)
         {
             string accountTokenBuilder = "account_token=" + accountToken;
             string transactionTypeBuilder = "transaction_type=" + transactionType;

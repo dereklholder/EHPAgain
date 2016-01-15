@@ -43,6 +43,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BouncyCastle.Crypto.dll" size="2236416">
+      <assemblyIdentity name="BouncyCastle.Crypto" version="1.8.1.0" publicKeyToken="0E99375E54769942" language="neutral" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>GYW4W7RL5sbq814C7xHiOokOgJuOwuUyEKStWoWybHA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HtmlAgilityPack.dll" size="134656">
       <assemblyIdentity name="HtmlAgilityPack" version="1.4.9.0" publicKeyToken="BD319B19EAF3B43A" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -67,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenEdge HostPay Demo.exe" size="113096">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenEdge HostPay Demo.exe" size="114632">
       <assemblyIdentity name="OpenEdge HostPay Demo" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SLTZAwE2sQyzl9CFK0NCbCW9UhJW49PNdnTx5Mai2Ws=</dsig:DigestValue>
+        <dsig:DigestValue>2KXGZGUKjeMvjyZnCVzAcFrsE55xPju51hq6BjCdI4A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -112,6 +124,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>VqAMenLJ5Zt1JC9bglDpPITDz380fpndMVR0I0r0z1w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="settings.dat" size="131">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Shgn2uOLxOHiA184vNE2kRiEQ55S8wpavMYoaN55ZSc=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

@@ -226,7 +226,8 @@ namespace EHPAgain
                     {
                         case "SALE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -241,7 +242,8 @@ namespace EHPAgain
                             switch (creditTypeCombo.Text)
                             {
                                 case "DEPENDENT":
-                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -249,7 +251,8 @@ namespace EHPAgain
                                     break;
 
                                 case "INDEPENDENT":
-                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text); // Build Parameters for POST
+                                    parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text); // Build Parameters for POST
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -265,7 +268,8 @@ namespace EHPAgain
 
                         case "AUTH":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -277,7 +281,8 @@ namespace EHPAgain
 
                         case "VOID":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -286,7 +291,8 @@ namespace EHPAgain
 
                         case "FORCE_SALE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilderAppCode(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, approvalCodeBox.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilderAppCode(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, approvalCodeBox.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -295,7 +301,8 @@ namespace EHPAgain
 
                         case "CAPTURE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -304,7 +311,8 @@ namespace EHPAgain
 
                         case "ADJUSTMENT":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -313,7 +321,8 @@ namespace EHPAgain
 
                         case "SIGNATURE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -335,7 +344,8 @@ namespace EHPAgain
                     switch (chargeTypeCombo.Text)
                     {
                         case "REFUND":
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -347,7 +357,8 @@ namespace EHPAgain
 
                         case "PURCHASE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParameterBox.Text); // Build Parameters for POST
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -372,7 +383,8 @@ namespace EHPAgain
                             switch (creditTypeCombo.Text)
                             {
                                 case "DEPENDENT":
-                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -380,7 +392,8 @@ namespace EHPAgain
                                     break;
 
                                 case "INDEPENDENT":
-                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -396,7 +409,8 @@ namespace EHPAgain
 
                         case "DEBIT":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
-                            parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
+                            parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text, 
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParameterBox.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -442,17 +456,29 @@ namespace EHPAgain
             if (null != hostPay.Document && null != hostPay.Document.GetElementById("paymentFinishedSignal"))
             {
                 string parameters = null;
-                if (transactionTypeCombo.Text == "CREDIT_CARD")
+                switch (transactionTypeCombo.Text)
                 {
-                    parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                    case "CREDIT_CARD":
+                        parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PAYMENT"); // Build Query
-                    queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
-                }
-                if (transactionTypeCombo.Text == "DEBIT_CARD")
-                {
-                    parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                        queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                        break;
+
+                    case "DEBIT_CARD":
+                        parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PURCHASE"); // Build Query
-                    queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                        queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                        break;
+
+                    case "ACH":
+                        parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                    transactionTypeCombo.Text, "QUERY"); // Build Query
+                        queryPaymentBrowser.DocumentText = PaymentEngine.webRequest_Query(parameters);
+                        break;
+
+                    default:
+                        break;
+
                 }
             }
 
@@ -522,9 +548,30 @@ namespace EHPAgain
             try
             {
                 QueryPost qp = new QueryPost();
-                qp.queryPostText = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                switch (transactionTypeCombo.Text)
+                {
+                    case "CREDIT_CARD":
+                        qp.queryPostText = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                 transactionTypeCombo.Text, "QUERY_PAYMENT");
-                qp.ShowDialog();
+                        qp.ShowDialog();
+                        break;
+
+                    case "DEBIT_CARD":
+                        qp.queryPostText = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                transactionTypeCombo.Text, "QUERY_PURCHASE");
+                        qp.ShowDialog();
+                        break;
+
+                    case "ACH":
+                        qp.queryPostText = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
+                transactionTypeCombo.Text, "QUERY");
+                        qp.ShowDialog();
+                        break;
+
+                    default:
+                        break;
+
+                }
             }
             catch (Exception ex)
             {
@@ -663,6 +710,33 @@ namespace EHPAgain
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
             }
+        }
+
+        private void saveParamButton_Click(object sender, EventArgs e) //Dealign with Settings.Dat file that contains account token and Saved Custom Parameters
+        {
+            string saveToken = accountTokenText.Text;
+            string saveCustom = customParameterBox.Text;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(saveToken + "," + saveCustom);
+            var settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
+            //
+            File.WriteAllText(settingsPath, sb.ToString());
+
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e) //Load Account Token from Settings.dat and load custom parameters.
+        {
+            var settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
+            string data = File.ReadAllText(settingsPath);
+            var parts = data.Split(',');
+            accountTokenText.Text = parts[0];
+            customParameterBox.Text = parts[1];
+
+        }
+
+        private void accountTokenText_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

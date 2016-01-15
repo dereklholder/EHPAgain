@@ -67,6 +67,7 @@
             this.mpdButton = new System.Windows.Forms.Button();
             this.approvalCodeLabel = new System.Windows.Forms.Label();
             this.approvalCodeBox = new System.Windows.Forms.TextBox();
+            this.saveParamButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,6 +128,7 @@
             this.accountTokenText.TabIndex = 4;
             this.accountTokenText.Text = "04173F8DCE65520D3580E5FF8555A961CECF249E46B5C2FAEFA04E248CD95FEA9D55BB581758D0591" +
     "B";
+            this.accountTokenText.TextChanged += new System.EventHandler(this.accountTokenText_TextChanged);
             // 
             // label1
             // 
@@ -455,11 +457,22 @@
             this.approvalCodeBox.TabIndex = 42;
             this.approvalCodeBox.Visible = false;
             // 
+            // saveParamButton
+            // 
+            this.saveParamButton.Location = new System.Drawing.Point(603, 202);
+            this.saveParamButton.Name = "saveParamButton";
+            this.saveParamButton.Size = new System.Drawing.Size(146, 23);
+            this.saveParamButton.TabIndex = 43;
+            this.saveParamButton.Text = "Save Custom Parameters";
+            this.saveParamButton.UseVisualStyleBackColor = true;
+            this.saveParamButton.Click += new System.EventHandler(this.saveParamButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 670);
+            this.Controls.Add(this.saveParamButton);
             this.Controls.Add(this.approvalCodeBox);
             this.Controls.Add(this.approvalCodeLabel);
             this.Controls.Add(this.mpdButton);
@@ -501,6 +514,7 @@
             this.Name = "MainWindow";
             this.Text = "OpenEdge HostPay Demo";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -547,6 +561,7 @@
         private System.Windows.Forms.Button mpdButton;
         private System.Windows.Forms.Label approvalCodeLabel;
         private System.Windows.Forms.TextBox approvalCodeBox;
+        private System.Windows.Forms.Button saveParamButton;
     }
 }
 
