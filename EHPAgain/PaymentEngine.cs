@@ -200,15 +200,6 @@ namespace EHPAgain
                         + "&" + "duplicate_check=NO_CHECK"
                         + customParameters);
 
-            /*string parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + entryModeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + chargeAmountBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + "duplicate_check=NO_CHECK"
-                                + customParameters
-                ;*/
             return parameters.ToString();
 
         }
@@ -238,17 +229,6 @@ namespace EHPAgain
                                 + "&" + "duplicate_check=NO_CHECK"
                                 + customParameters)
                                 ;
-
-            /*string parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + entryModeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + chargeAmountBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + approvalCodeBuilder
-                                + "&" + approvalCodeBuilder
-                                + "&" + "duplicate_check=NO_CHECK"
-                                + customParameters*/
                 ;
             return parameters.ToString();
 
@@ -289,22 +269,6 @@ namespace EHPAgain
                 default:
                     break;
             }
-
-            /*if (accountTypeStatus == "DEFAULT")
-            {
-                accountTypeBuilder = "account_type=2";
-                usesAccountType = false;
-            }
-            if (accountTypeStatus == "CASH_BENEFIT")
-            {
-                accountTypeBuilder = "account_type=3";
-                usesAccountType = true;
-            }
-            if (accountTypeStatus == "FOOD_STAMP")
-            {
-                accountTypeBuilder = "account_type=4";
-                usesAccountType = true;
-            }*/
             
 
             if (usesAccountType == false)
@@ -352,12 +316,7 @@ namespace EHPAgain
                                 + "&" + orderIDBuilder
                                 + "&" + "full_detail_flag=true");
 
-            /*string parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + "full_detail_flag=true"
-                ;*/
+            
             return parameters.ToString();
 
         }
@@ -388,18 +347,7 @@ namespace EHPAgain
                                 + "&" + "managed_payer_data=true"
                                 + "&" + "duplicate_check=NO_CHECK");
 
-            /*string parameters = accountTokenBuilder
-                                + "&" + transactionTypeBuilder
-                                + "&" + chargeTypeBuilder
-                                + "&" + orderIDBuilder
-                                + "&" + payerIDBuilder
-                                + "&" + spanBuilder
-                                //+ "&" + expMMBuilder
-                                //+ "&" + expYYBuilder
-                                + "&" + amountBuilder
-                                + "&" + "managed_payer_data=true"
-                                + "&" + "duplicate_check=NO_CHECK"
-                ;*/
+            
             return parameters.ToString();
         }
 
