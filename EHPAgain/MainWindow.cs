@@ -13,6 +13,8 @@ using System.Diagnostics.Tracing;
 using HtmlAgilityPack;
 using System.Web;
 using System.Data.SqlClient;
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Paddings;
 
 /* Code for Demonstration Purposes by Derek Holder
  * For Demo Purposes Only, not intented for Live use */
@@ -22,10 +24,16 @@ namespace EHPAgain
     
     public partial class MainWindow : Form
     {
-        
+        Encoding _encoding;
+        IBlockCipherPadding _padding;
+
+        public readonly string Key = "6f70656e65646765686f7374706179DH";
         public MainWindow()
         {
             InitializeComponent();
+            _encoding = Encoding.ASCII;
+            Pkcs7Padding pkcs = new Pkcs7Padding();
+            _padding = pkcs;
         }
         
         public string TCC = null; //Transaction Condition Code variable, used for Check Transactions. 
@@ -626,13 +634,14 @@ namespace EHPAgain
                 string tranType = transactionTypeCombo.Text;
                 string label = DateTime.Now.ToShortDateString() + DateTime.Now.ToLongTimeString(); // + DateTime.Now.ToLongDateString();
                 StringBuilder forTheLogging = new StringBuilder();
-                forTheLogging.Append("Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label);
-                //string forTheLogging =  "Here is the Data Being Attempted to Add to SQL" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label;
-                StringBuilder dbString = new StringBuilder();
-                dbString.Append(id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType);
-                //string dbString = id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType;
+                forTheLogging.Append("Here is the Data Being Attempted to Add to DB" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label);
                 var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
-                File.AppendAllText(dbPath, dbString.ToString() + Environment.NewLine);
+
+               
+                StringBuilder dbString = new StringBuilder();
+                dbString.Append(id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType + Environment.NewLine);
+                
+                File.AppendAllText(dbPath, dbString.ToString());
                 writeToLog(forTheLogging.ToString());
 
                 /* Sql is dumb, may revisit.
@@ -719,8 +728,8 @@ namespace EHPAgain
             StringBuilder sb = new StringBuilder();
             sb.Append(saveToken + "," + saveCustom);
             var settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
-            //
-            File.WriteAllText(settingsPath, sb.ToString());
+            File.WriteAllText(settingsPath, AESEncryption(sb.ToString(), Key, true));
+
 
         }
 
@@ -728,10 +737,25 @@ namespace EHPAgain
         {
             var settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
             string data = File.ReadAllText(settingsPath);
-            var parts = data.Split(',');
+            string decryptedData = AESDecryption(data, Key, true);
+            var parts = decryptedData.Split(',');
             accountTokenText.Text = parts[0];
             customParameterBox.Text = parts[1];
 
+        }
+        public string AESEncryption(string plain, string key, bool fips)
+        {
+            OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Encrypt(plain, key);
+
+        }
+
+        public string AESDecryption(string cipher, string key, bool fips)
+        {
+            OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Decrypt(cipher, key);
         }
 
         private void accountTokenText_TextChanged(object sender, EventArgs e)

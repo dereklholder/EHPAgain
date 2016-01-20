@@ -11,27 +11,65 @@ using Org.BouncyCastle.Utilities.IO;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.Bcpg;
 using System.Windows.Forms;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Paddings;
+using Org.BouncyCastle.Crypto.Parameters;
 
 namespace OpenEdgeHostPayDemo
 {
     public class SuperSecret
-    {   
-        public static void SaveInContainer(string ContainerName)
+    {
+        private readonly Encoding _encoding;
+        private readonly IBlockCipher _blockCipher;
+        private PaddedBufferedBlockCipher _cipher;
+        private IBlockCipherPadding _padding;
+
+        public SuperSecret(IBlockCipher blockCipher, Encoding encoding)
         {
-            CspParameters cp = new CspParameters();
-            cp.KeyContainerName = ContainerName;
-
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
-
-            //MessageBox.Show("Key added to container: \n {0}", rsa.ToXmlString(true));
+            _blockCipher = blockCipher;
+            _encoding = encoding;
         }
-        public static void GetKey(string containerName)
+
+        public void SetPadding(IBlockCipherPadding padding)
         {
-            CspParameters cp = new CspParameters();
-            cp.KeyContainerName = containerName;
-
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
+            if (padding != null)
+                _padding = padding;
         }
-        
+
+        public string Encrypt(string plain, string key)
+        {
+            byte[] result = BouncyCastleCrypto(true, _encoding.GetBytes(plain), key);
+            return Convert.ToBase64String(result);
+        }
+
+        public string Decrypt(string cipher, string key)
+        {
+            byte[] result = BouncyCastleCrypto(false, Convert.FromBase64String(cipher), key);
+            return _encoding.GetString(result);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="forEncrypt"></param>
+        /// <param name="input"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="CryptoException"></exception>
+        private byte[] BouncyCastleCrypto(bool forEncrypt, byte[] input, string key)
+        {
+            try
+            {
+                _cipher = _padding == null ? new PaddedBufferedBlockCipher(_blockCipher) : new PaddedBufferedBlockCipher(_blockCipher, _padding);
+                byte[] keyByte = _encoding.GetBytes(key);
+                _cipher.Init(forEncrypt, new KeyParameter(keyByte));
+                return _cipher.DoFinal(input);
+            }
+            catch (Org.BouncyCastle.Crypto.CryptoException ex)
+            {
+                throw new CryptoException(ex.Message);
+            }
+
+        }
     }
 }

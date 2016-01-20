@@ -9,16 +9,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+using Org.BouncyCastle.Crypto.Paddings;
+using Org.BouncyCastle.Crypto.Engines;
+
 namespace OpenEdgeHostPayDemo
 {
     public partial class MPDTransactions : Form
     {
+        Encoding _encoding;
+        IBlockCipherPadding _padding;
+
+        public readonly string Key = "6f70656e65646765686f7374706179DH";
+
         public MPDTransactions()
         {
             InitializeComponent();
             dbViewer.Controls.Add(txt);
             dbViewer.FullRowSelect = true;
             txt.Leave += (o, e) => txt.Visible = false;
+
+            _encoding = Encoding.ASCII;
+            Pkcs7Padding pkcs = new Pkcs7Padding();
+            _padding = pkcs;
 
         }
         private readonly TextBox txt = new TextBox { BorderStyle = BorderStyle.FixedSingle, Visible = false, ReadOnly = true };
@@ -105,6 +117,9 @@ namespace OpenEdgeHostPayDemo
         {
             dbViewer.View = View.Details;
             var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
+
+           
+
             var data = File.ReadAllLines(dbPath);
             foreach (string line in data)
             {
@@ -188,6 +203,21 @@ namespace OpenEdgeHostPayDemo
         private void dbViewerLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public string AESEncryption(string plain, string key, bool fips)
+        {
+            OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Encrypt(plain, key);
+
+        }
+
+        public string AESDecryption(string cipher, string key, bool fips)
+        {
+            OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Decrypt(cipher, key);
         }
     }
 }
