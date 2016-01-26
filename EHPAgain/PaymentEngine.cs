@@ -345,7 +345,7 @@ namespace EHPAgain
                                 //+ "&" + expYYBuilder
                                 + "&" + amountBuilder
                                 + "&" + "managed_payer_data=true"
-                                + "&" + "duplicate_check=NO_CHECK");
+                                /*+ "&" + "duplicate_check=NO_CHECK"*/);
 
             
             return parameters.ToString();

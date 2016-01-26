@@ -24,6 +24,8 @@ namespace OpenEdgeHostPayDemo
         private PaddedBufferedBlockCipher _cipher;
         private IBlockCipherPadding _padding;
 
+        public readonly string Key = "6f70656e65646765686f7374706179DH";
+
         public SuperSecret(IBlockCipher blockCipher, Encoding encoding)
         {
             _blockCipher = blockCipher;

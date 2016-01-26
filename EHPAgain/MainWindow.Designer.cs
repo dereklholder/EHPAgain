@@ -68,6 +68,7 @@
             this.approvalCodeLabel = new System.Windows.Forms.Label();
             this.approvalCodeBox = new System.Windows.Forms.TextBox();
             this.saveParamButton = new System.Windows.Forms.Button();
+            this.saveTokenButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.signatureImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -467,11 +468,22 @@
             this.saveParamButton.UseVisualStyleBackColor = true;
             this.saveParamButton.Click += new System.EventHandler(this.saveParamButton_Click);
             // 
+            // saveTokenButton
+            // 
+            this.saveTokenButton.Location = new System.Drawing.Point(436, 22);
+            this.saveTokenButton.Name = "saveTokenButton";
+            this.saveTokenButton.Size = new System.Drawing.Size(75, 23);
+            this.saveTokenButton.TabIndex = 44;
+            this.saveTokenButton.Text = "Save Token";
+            this.saveTokenButton.UseVisualStyleBackColor = true;
+            this.saveTokenButton.Click += new System.EventHandler(this.saveParamButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 670);
+            this.Controls.Add(this.saveTokenButton);
             this.Controls.Add(this.saveParamButton);
             this.Controls.Add(this.approvalCodeBox);
             this.Controls.Add(this.approvalCodeLabel);
@@ -562,6 +574,7 @@
         private System.Windows.Forms.Label approvalCodeLabel;
         private System.Windows.Forms.TextBox approvalCodeBox;
         private System.Windows.Forms.Button saveParamButton;
+        private System.Windows.Forms.Button saveTokenButton;
     }
 }
 

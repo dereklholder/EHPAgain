@@ -38,15 +38,7 @@ namespace EHPAgain
         
         public string TCC = null; //Transaction Condition Code variable, used for Check Transactions. 
    
-        /* Deprecated SQL Attempt. May revisit.
-        public static string LocalPath = AppDomain.CurrentDomain.BaseDirectory.ToString();
-        public static string ConnString = String.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;
-                                                    AttachDBFilename={0}MPDVault.MDF;
-                                                    Integrated Security= true;
-                                                    Connect Timeout=30;
-                                                    User Instance=false", LocalPath);
-        public static string newConnString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MPDVault.mdf;Integrated Security = True;";
-        */
+        
         private void Form1_Load(object sender, EventArgs e)
         {
          
@@ -621,7 +613,6 @@ namespace EHPAgain
             s.Append(queryPaymentBrowser.DocumentText);
 
             writeToLog(s.ToString());
-            // Grab Information for MPD Transactions, if it exists. WIP
             NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryPaymentBrowser.DocumentText.ToString());
             
             try
@@ -637,29 +628,16 @@ namespace EHPAgain
                 forTheLogging.Append("Here is the Data Being Attempted to Add to DB" + Environment.NewLine + payer_Id + Environment.NewLine + exp_mm + Environment.NewLine + exp_yy + Environment.NewLine + span + Environment.NewLine + label);
                 var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
 
-               
-                StringBuilder dbString = new StringBuilder();
-                dbString.Append(id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType + Environment.NewLine);
                 
+                 StringBuilder dbString = new StringBuilder();
+                 dbString.Append(id + ',' + payer_Id + ',' + exp_mm + ',' + exp_yy + ',' + span + ',' + label + ',' + tranType + Environment.NewLine);
+
                 File.AppendAllText(dbPath, dbString.ToString());
+                 
+                
                 writeToLog(forTheLogging.ToString());
 
-                /* Sql is dumb, may revisit.
-                using (SqlConnection conn = new SqlConnection(newConnString))
-                {
-                    SqlCommand addToken = new SqlCommand(@"INSERT INTO dbo.tokenVault (Id, Payer_Identifier, SPAN, EXP_MM, EXP_YY, Label) 
-                                                                        VALUES (@Id,@payer_ID,@SPAN,@EXP_MM,@EXP_YY,@Label)", conn);
-                    addToken.Parameters.AddWithValue("@Id", id);
-                    addToken.Parameters.AddWithValue("@payer_ID", payer_Id);
-                    addToken.Parameters.AddWithValue("@exp_mm", exp_mm);
-                    addToken.Parameters.AddWithValue("@exp_yy", exp_yy);
-                    addToken.Parameters.AddWithValue("@span", span);
-                    addToken.Parameters.AddWithValue("@Label", label);
-                    conn.Open();
-                    addToken.ExecuteNonQuery();
-                    conn.Close();
-                   
-                }*/
+                
                 
             }
             catch (SqlException ex)
@@ -743,7 +721,7 @@ namespace EHPAgain
             customParameterBox.Text = parts[1];
 
         }
-        public string AESEncryption(string plain, string key, bool fips)
+        public string AESEncryption(string plain, string key, bool fips) //Encryption for Settings.DAT
         {
             OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
             superSecret.SetPadding(_padding);
@@ -751,11 +729,18 @@ namespace EHPAgain
 
         }
 
-        public string AESDecryption(string cipher, string key, bool fips)
+        public string AESDecryption(string cipher, string key, bool fips) //Decryption for Settings.DAT
         {
             OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
             superSecret.SetPadding(_padding);
             return superSecret.Decrypt(cipher, key);
+        }
+
+        public void writeEncryptedStringToDB(string data)
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat"));
+            File.AppendAllText(path, data + Environment.NewLine);
+
         }
 
         private void accountTokenText_TextChanged(object sender, EventArgs e)

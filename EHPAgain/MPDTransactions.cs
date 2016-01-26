@@ -59,7 +59,8 @@ namespace OpenEdgeHostPayDemo
                     chargeTypeCombo.Items.AddRange(new object[]
                     {
                     "DEBIT",
-                    "CREDIT"
+                    "CREDIT",
+                    "DELETE_CUSTOMER"
                     });
                     break;
 
@@ -116,9 +117,9 @@ namespace OpenEdgeHostPayDemo
         private void MPDTransactions_Load(object sender, EventArgs e)
         {
             dbViewer.View = View.Details;
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
 
-           
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("Logging", "db.dat")).ToString();
+            
 
             var data = File.ReadAllLines(dbPath);
             foreach (string line in data)
@@ -218,6 +219,12 @@ namespace OpenEdgeHostPayDemo
             OpenEdgeHostPayDemo.SuperSecret superSecret = new OpenEdgeHostPayDemo.SuperSecret(new AesEngine(), _encoding);
             superSecret.SetPadding(_padding);
             return superSecret.Decrypt(cipher, key);
+        }
+
+        public string ReadEncryptedDB(string path)
+        {
+            //To Implement
+            return null;
         }
     }
 }
